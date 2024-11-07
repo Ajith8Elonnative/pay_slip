@@ -14,7 +14,7 @@ app.use(bodyparser.json())
 app.use(express.json())
 app.use(cors())
 
-app.use('/emp-doc', swaggerUi.serve, swaggerDoc.setup(swaggerDoc))
+app.use('/emp-doc', swaggerUi.serve, swaggerUi.setup(swaggerDoc))
 
 app.get('/', (req, res) => {
     res.send("hi hello makkale, welcome ")
