@@ -7,9 +7,9 @@ const doc = {
     },
     host: "pay-slip.onrender.com",
     basePath: '/',
-    schemes:['http','https'],
-    consumes:['application/json'],
-    produces:['application/json']
+    schemes: ['https', 'http'],
+    consumes: ['application/json'],
+    produces: ['application/json']
 }
 const outputFile = "./swagger-output.json";
 const routes = ["./main.js"];

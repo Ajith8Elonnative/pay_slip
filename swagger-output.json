@@ -8,8 +8,8 @@
   "host": "pay-slip.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http",
-    "https"
+    "https",
+    "http"
   ],
   "consumes": [
     "application/json"
@@ -152,6 +152,145 @@
           "200": {
             "description": "OK"
           },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/Pay_slip_calculate/getAll": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/Pay_slip_calculate/create": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "payPeriod": {
+                  "example": "any"
+                },
+                "paymentDate": {
+                  "example": "any"
+                },
+                "paidDays": {
+                  "example": "any"
+                },
+                "lossOfPayDaysAndHour": {
+                  "example": "any"
+                },
+                "incomeTax": {
+                  "example": "any"
+                },
+                "loss": {
+                  "example": "any"
+                },
+                "pf": {
+                  "example": "any"
+                },
+                "performanceAndSpecialAllowens": {
+                  "example": "any"
+                },
+                "tatalAmount": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/Pay_slip_calculate/update/{id}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "payPeriod": {
+                  "example": "any"
+                },
+                "paymentDate": {
+                  "example": "any"
+                },
+                "paidDays": {
+                  "example": "any"
+                },
+                "lossOfPayDaysAndHour": {
+                  "example": "any"
+                },
+                "incomeTax": {
+                  "example": "any"
+                },
+                "loss": {
+                  "example": "any"
+                },
+                "pf": {
+                  "example": "any"
+                },
+                "performanceAndSpecialAllowens": {
+                  "example": "any"
+                },
+                "tatalAmount": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/Pay_slip_calculate/delete/{id}": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
           "500": {
             "description": "Internal Server Error"
           }
