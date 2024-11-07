@@ -1,5 +1,7 @@
 const express = require('express')
 const bodyparser = require('express')
+const swaggerUi = require('swagger-ui-express')
+const swaggerDoc = require('./swagger-output.json')
 const cors = require('cors')
 const mongoose = require ('mongoose')
 require('dotenv').config()
@@ -11,6 +13,8 @@ const PORT =8080
 app.use(bodyparser.json())
 app.use(express.json())
 app.use(cors())
+
+app.use('/emp-doc', swaggerUi.serve, swaggerDoc.setup(swaggerDoc))
 
 app.get('/', (req, res) => {
     res.send("hi hello makkale, welcome ")
