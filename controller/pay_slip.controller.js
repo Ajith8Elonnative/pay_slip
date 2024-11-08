@@ -38,6 +38,9 @@ exports.create = async (req, res) => {
 exports.update = async (req, res) => {
     try {
         const { salary, payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, loss, pf, performanceAndSpecialAllowens, totalAmount } = req.body;
+        const InPfLoss = Number(pf) + Number(incomeTax) + Number(loss)
+        const actualSalary = salary - (lossOfPayDaysAndHour * salary / 22) + (performanceAndSpecialAllowens - InPfLoss);
+        const calculatedTotalAmount = Math.round(actualSalary);
         const update = await paySlip.findByIdAndUpdate({ _id: req.params.id },
             {
                 salary,
@@ -49,7 +52,7 @@ exports.update = async (req, res) => {
                 loss,
                 pf,
                 performanceAndSpecialAllowens,
-                totalAmount
+                totalAmount:calculatedTotalAmount
             },
             {
                 new: true
