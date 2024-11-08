@@ -14,6 +14,10 @@ app.use(bodyparser.json())
 app.use(express.json())
 app.use(cors())
 
+if (swaggerDoc.components && swaggerDoc.components.headers) {
+    delete swaggerDoc.components.headers['default']; // Replace 'Header-Name' with the actual header name
+}
+
 app.use('/emp-doc', swaggerUi.serve, swaggerUi.setup(swaggerDoc))
 
 app.get('/', (req, res) => {
