@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const schema = new mongoose.Schema({
+    salary:{
+        type:String,
+        required:true
+    },
     payPeriod: {
         type: String
     },
@@ -25,7 +29,7 @@ const schema = new mongoose.Schema({
     performanceAndSpecialAllowens: {
         type: String
     },
-    tatalAmount: {
+    totalAmount: {
         type: String
     }
 })

@@ -181,6 +181,9 @@
             "schema": {
               "type": "object",
               "properties": {
+                "salary": {
+                  "example": "any"
+                },
                 "payPeriod": {
                   "example": "any"
                 },
@@ -205,7 +208,7 @@
                 "performanceAndSpecialAllowens": {
                   "example": "any"
                 },
-                "tatalAmount": {
+                "totalAmount": {
                   "example": "any"
                 }
               }
@@ -238,6 +241,9 @@
             "schema": {
               "type": "object",
               "properties": {
+                "salary": {
+                  "example": "any"
+                },
                 "payPeriod": {
                   "example": "any"
                 },
@@ -262,7 +268,7 @@
                 "performanceAndSpecialAllowens": {
                   "example": "any"
                 },
-                "tatalAmount": {
+                "totalAmount": {
                   "example": "any"
                 }
               }
@@ -291,6 +297,9 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "OK"
+          },
           "500": {
             "description": "Internal Server Error"
           }

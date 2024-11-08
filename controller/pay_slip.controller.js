@@ -11,8 +11,12 @@ exports.getAll = async (req, res) => {
 
 exports.create = async (req, res) => {
     try {
-        const { payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, loss, pf, performanceAndSpecialAllowens, tatalAmount } = req.body
+        const { salary, payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, loss, pf, performanceAndSpecialAllowens, totalAmount } = req.body
+        const InPfLoss = Number(pf) + Number(incomeTax) + Number(loss)
+        const actualSalary = salary - (lossOfPayDaysAndHour * salary / 22) + (performanceAndSpecialAllowens - InPfLoss);
+        const calculatedTotalAmount = Math.round(actualSalary);
         const create = await new paySlip({
+            salary,
             payPeriod,
             paymentDate,
             paidDays,
@@ -21,8 +25,9 @@ exports.create = async (req, res) => {
             loss,
             pf,
             performanceAndSpecialAllowens,
-            tatalAmount
+            totalAmount:calculatedTotalAmount,
         })
+        
         await create.save()
         res.status(201).json(create)
     } catch (error) {
@@ -32,9 +37,10 @@ exports.create = async (req, res) => {
 
 exports.update = async (req, res) => {
     try {
-        const { payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, loss, pf, performanceAndSpecialAllowens, tatalAmount } = req.body;
-        const update = await paySlip.findByIdAndUpdate({_id:req.params.id},
+        const { salary, payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, loss, pf, performanceAndSpecialAllowens, totalAmount } = req.body;
+        const update = await paySlip.findByIdAndUpdate({ _id: req.params.id },
             {
+                salary,
                 payPeriod,
                 paymentDate,
                 paidDays,
@@ -43,12 +49,12 @@ exports.update = async (req, res) => {
                 loss,
                 pf,
                 performanceAndSpecialAllowens,
-                tatalAmount  
+                totalAmount
             },
             {
-                new:true
+                new: true
             }
-        ) 
+        )
         res.status(201).json(update)
     } catch (error) {
         res.status(500).json({ message: error.message })
@@ -57,8 +63,9 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
     try {
-        const id=req.params.id
-        paySlip.findByIdAndDelete({_id:id})
+
+        await paySlip.findByIdAndDelete({ _id: req.params.id })
+        res.status(200).json({ message: "deleted successfully" })
     } catch (error) {
         res.status(500).json({ message: error.message })
     }

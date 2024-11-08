@@ -53,7 +53,7 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
     try {
-        result.findByIdAndDelete({ id: req.params.id })
+        result.findByIdAndDelete({ _id: req.params.id })
         res.status(200).json({ message: "deleted successfully" })
     } catch (error) {
         res.status(500).json({ message: error.message })
