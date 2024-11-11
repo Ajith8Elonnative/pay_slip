@@ -9,10 +9,11 @@ const empRoutes = require('./routes/emp.routes.js')
 const calRoutes = require('./routes/pay_slip.route.js')
 const app = express()
 
-
+app.set('view engine', 'ejs')
 app.use(bodyparser.json())
 app.use(express.json())
 app.use(cors())
+app.use('/public', express.static('public'))
 
 if (swaggerDoc.components && swaggerDoc.components.headers) {
     delete swaggerDoc.components.headers['default']; // Replace 'Header-Name' with the actual header name
@@ -21,7 +22,7 @@ if (swaggerDoc.components && swaggerDoc.components.headers) {
 app.use('/emp-doc', swaggerUi.serve, swaggerUi.setup(swaggerDoc))
 
 app.get('/', (req, res) => {
-    res.send("hi hello makkale, welcome ")
+    res.render('slip')
 })
 
 const PORT = process.env.PORT || 8080
