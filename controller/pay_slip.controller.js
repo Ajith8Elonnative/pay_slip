@@ -12,12 +12,12 @@ exports.getAll = async (req, res) => {
 
 exports.create = async (req, res) => {
     try {
-        const { salary, payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, loss, pf, performanceAndSpecialAllowens, totalAmount } = req.body
+        const { empId,salary, payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, loss, pf, performanceAndSpecialAllowens, totalAmount } = req.body
         const InPfLoss = Number(pf) + Number(incomeTax) + Number(loss)
         const actualSalary = salary - (lossOfPayDaysAndHour * salary / 22) + (performanceAndSpecialAllowens - InPfLoss);
         const calculatedTotalAmount = Math.round(actualSalary);
         const create = await new paySlip({
-          
+            empId,
             salary,
             payPeriod,
             paymentDate,
