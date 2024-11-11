@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const schema = new mongoose.Schema({
+    empId:{
+        type:String,
+        required:true
+    },
     salary:{
         type:String,
         required:true

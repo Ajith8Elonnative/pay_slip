@@ -1,4 +1,5 @@
 const paySlip = require('../model/pay_slip.model.js')
+const staffId = require('../model/emp.model.js')
 
 exports.getAll = async (req, res) => {
     try {
@@ -16,6 +17,7 @@ exports.create = async (req, res) => {
         const actualSalary = salary - (lossOfPayDaysAndHour * salary / 22) + (performanceAndSpecialAllowens - InPfLoss);
         const calculatedTotalAmount = Math.round(actualSalary);
         const create = await new paySlip({
+          
             salary,
             payPeriod,
             paymentDate,
@@ -27,7 +29,7 @@ exports.create = async (req, res) => {
             performanceAndSpecialAllowens,
             totalAmount:calculatedTotalAmount,
         })
-        
+       
         await create.save()
         res.status(201).json(create)
     } catch (error) {
