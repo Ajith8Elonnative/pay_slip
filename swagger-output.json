@@ -22,8 +22,8 @@
       "get": {
         "description": "",
         "responses": {
-          "200": {
-            "description": "OK"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -181,6 +181,9 @@
             "schema": {
               "type": "object",
               "properties": {
+                "empId": {
+                  "example": "any"
+                },
                 "salary": {
                   "example": "any"
                 },
