@@ -22,9 +22,7 @@ if (swaggerDoc.components && swaggerDoc.components.headers) {
 
 app.use('/emp-doc', swaggerUi.serve, swaggerUi.setup(swaggerDoc))
 
-app.get('/', (req, res) => {
-    res.render('slip')
-})
+
 
 const PORT = process.env.PORT || 8000;
 
