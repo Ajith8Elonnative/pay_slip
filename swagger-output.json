@@ -18,17 +18,20 @@
     "application/json"
   ],
   "paths": {
-    "/": {
+    "/Pay_slip_employee/getAll": {
       "get": {
         "description": "",
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
           }
         }
       }
     },
-    "/Pay_slip_employee/getAll": {
+    "/Pay_slip_employee/getId": {
       "get": {
         "description": "",
         "responses": {
@@ -219,9 +222,6 @@
           }
         ],
         "responses": {
-          "201": {
-            "description": "Created"
-          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -244,6 +244,9 @@
             "schema": {
               "type": "object",
               "properties": {
+                "empId": {
+                  "example": "any"
+                },
                 "salary": {
                   "example": "any"
                 },

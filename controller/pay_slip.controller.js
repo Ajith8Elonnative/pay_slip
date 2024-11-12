@@ -1,5 +1,5 @@
 const paySlip = require('../model/pay_slip.model.js')
-
+const empDetails = require('../model/emp.model.js')
 
 exports.getAll = async (req, res) => {
     try {
@@ -35,7 +35,7 @@ exports.create = async (req, res) => {
         //  res.status(201).json(paySlipData)
         
         // const empID = paySlipData.empId
-        // const paySlipData = await paySlip.findOne({ empId: req.body.empId });
+         const paySlipData = await empDetails.findOne({ empId: req.body.empId });
         // Check what you are getting here
         res.render('slip', { paySlipData: create });
        
