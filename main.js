@@ -15,6 +15,7 @@ app.use(express.json())
 app.use(cors())
 app.use('/public', express.static('public'))
 
+
 if (swaggerDoc.components && swaggerDoc.components.headers) {
     delete swaggerDoc.components.headers['default']; // Replace 'Header-Name' with the actual header name
 }
@@ -25,7 +26,7 @@ app.get('/', (req, res) => {
     res.render('slip')
 })
 
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 8000;
 
 mongoose.connect(process.env.MONGO_URL)
 mongoose.connect(process.env.MONGO_URL)

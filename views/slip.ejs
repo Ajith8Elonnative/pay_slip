@@ -4,29 +4,158 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>pay_slip pdf</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
-    <script>
-      
-    </script>
     <header>
-      <div class="d-flex justify-content-center align-items-center mt-5">
-        <img
-          src="/public/elon image.png"
-          alt="Elon Image"
-          style="width: 80px"
-        />
-        <div class="ms-2">
-          <h2 style="color: darkgreen">ELON NATIVE SYSTEM</h2>
-          <H4 style="color: red">DO IT WITH PASSION</H4>
+      <div class="container border border-dark pt-4 mt-5">
+        <div class="row">
+          <div class="col-2 text-center">
+            <img
+              class="rounded-circle"
+              src="/public/elon image.png"
+              alt="Elon Image"
+              style="width: 110px"
+            />
+          </div>
+          <div class="col-9 text-center">
+            <h2 style="color: darkgreen">ELON NATIVE SYSTEM</h2>
+            <H4 style="color: red">DO IT WITH PASSION</H4>
+            <p>182,Velmurugan nadar street,Mamsapuram</p>
+          </div>
+        </div>
+        <hr />
+             
+        <div class="pay-slip-header text-center">
+          <h2 class="text-primary">Monthly Pay Slip</h2>
+        </div>
+
+        <!-- Employee Details Section -->
+        <div class="row mt-4">
+          <div class="col-6">
+            <table style="border: none; border-collapse: collapse;" class="table table-bordered">
+                <tbody>
+                  <tr>
+                    <td style="width: 10%;">Employee Name</td>
+                    <td style="width: 10%;"></td>
+                  </tr>
+                  <tr>
+                    <td>Employee Id</td>
+                    <td><%= paySlipData.empId %></td>
+                  </tr>
+                  <tr>
+                    <td>Employee Designation</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>Pay period</td>
+                    <td><%= paySlipData.payPeriod %></td>
+                  </tr>
+                  <tr>
+                    <td>Pay Date</td>
+                    <td><%= paySlipData.paymentDate %></td>
+                  </tr>
+                  <tr>
+                    <td>Paid Days</td>
+                    <td><%= paySlipData.paidDays %></td>
+                  </tr>
+                  <tr>
+                    <td>Loss of pay days</td>
+                    <td><%= paySlipData.lossOfPayDaysAndHour %></td>
+                  </tr>
+                </tbody>
+            </table>
+          </div>
+          <div class="col">
+            <strong >Account Deatails:</strong>
+            <table style="border: none; border-collapse: collapse;" class="table table-bordered mt-3">
+              <tbody>
+                <tr>
+                  <td style="width: 10%;">Account Number</td>
+                  <td style="width: 10%;"></td>
+                </tr>
+                <tr>
+                  <td>Bank</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Branch</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>IFSC Code</td>
+                  <td></td>
+                </tr>
+              </tbody>
+          </table>
+          </div>
+        </div>
+
+        <!-- Salary Breakdown Table -->
+        <div class="table-responsive">
+          <table style="border: none; border-collapse: collapse;" class="table table-bordered">
+            <thead>
+              <tr style="background:#ccc;">
+                <th style="width: 25%;border-right: none;">Earning</th>
+                <th style="width: 25%;border-left: none;"></th>
+                <th style="width: 25%;border-right: none;">Reducing</th>
+                <th style="width: 25%;border-left: none;"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Basic</td>
+                <td><input style="border: none;outline: none;" type="text"></td>
+                <td>Income tax</td>
+                <td><input style="border: none;outline: none;" type="text"><%= paySlipData.incomeTax %></td>
+              </tr>
+              <tr>
+                <td>Perfomance and special allowens </td>
+                <td><input style="border: none;outline: none;" type="text"><%= paySlipData.performanceAndSpecialAllowens %></td>
+                <td>loss</td>
+                <td><input style="border: none;outline: none;" type="text"><%= paySlipData.loss %></td>
+              </tr>
+              <tr>
+                <td><strong>Cross Earning</strong></td>
+                <td></td>
+                <td><strong>Total Reduction</strong></td>
+                <td></td>
+              </tr>
+             
+             
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <table style="border: none; border-collapse: collapse;" class="table table-bordered">
+            <tbody>
+              <tr>
+                <td style="width:50%">Total net payable(Cross Earning-Total Reduction)</td>
+                <td style="width:50%"></td>
+              </tr>
+            </tbody>
+          </table>
+         
+        </div>
+
+        <!-- Pay Slip Footer -->
+        <div class="d-flex justify-content-between my-5 mx-5">
+          <p><strong>Employee Signature:</strong> ___________________</p>
+          <p><strong>HR Signature:</strong> ___________________</p>
+          
         </div>
       </div>
-
     </header>
-    
-    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-  
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
