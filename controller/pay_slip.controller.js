@@ -35,10 +35,10 @@ exports.create = async (req, res) => {
         })
         
         await create.save()
-        const paySlipData = create
-        const emp = await empDetails.findOne({ empId: req.body.empId });
        
-        res.render('slip', { paySlipData, emp });
+        const emp = await empDetails.findOne({ empId: req.body.empId });
+      
+        res.render('slip', { paySlipData:create, emp });
 
         // const html = await ejs.renderFile(path.join(__dirname, '../views/slip.ejs'), { paySlipData, emp });
        
