@@ -21,6 +21,9 @@ const schema = new mongoose.Schema({
     lossOfPayDaysAndHour: {
         type: String
     },
+    basics:{
+        type:String
+    },
     incomeTax: {
         type: String
     },
@@ -29,6 +32,12 @@ const schema = new mongoose.Schema({
     },
     pf: {
         type: String
+    },
+    totalReduction:{
+        type:String
+    },
+    crossEarning:{
+        type:String
     },
     performanceAndSpecialAllowens: {
         type: String

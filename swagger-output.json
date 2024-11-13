@@ -205,6 +205,15 @@
                 "incomeTax": {
                   "example": "any"
                 },
+                "basics": {
+                  "example": "any"
+                },
+                "totalReduction": {
+                  "example": "any"
+                },
+                "crossEarning": {
+                  "example": "any"
+                },
                 "loss": {
                   "example": "any"
                 },
