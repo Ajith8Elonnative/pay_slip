@@ -1,4 +1,5 @@
 const express = require('express')
+const path = require('path')
 const bodyparser = require('express')
 const swaggerUi = require('swagger-ui-express')
 const swaggerDoc = require('./swagger-output.json')
@@ -10,7 +11,7 @@ const calRoutes = require('./routes/pay_slip.route.js')
 const app = express()
 
 app.set('view engine', 'ejs')
-
+app.set('views', path.join(__dirname, 'views'))
 app.use(bodyparser.json())
 app.use(express.json())
 app.use(cors())

@@ -1,5 +1,11 @@
 const paySlip = require('../model/pay_slip.model.js')
 const empDetails = require('../model/emp.model.js')
+const ejs = require('ejs');
+const path = require('path');
+const puppeteer = require('puppeteer');
+const fs = require('fs');
+
+
 
 exports.getAll = async (req, res) => {
     try {
@@ -38,11 +44,30 @@ exports.create = async (req, res) => {
         })
 
         await create.save()
-        console.log(crossEarn)
-        console.log(create)
         const empDetail = await empDetails.findOne({ empId: req.body.empId });
+        const html = await ejs.renderFile( path.join(__dirname, '../views/slip.ejs'), { paySlipData: create, emp: empDetail });
+        // res.status(200).render('slip', { paySlipData: create, emp: empDetail })
+        // Launch puppeteer and convert HTML to PDF
+        const browser = await puppeteer.launch();
+        const page = await browser.newPage();
+        await page.setContent(html, { waitUntil: 'networkidle0' });
+        
+        // Save the PDF to a buffer
+        const pdfBuffer = await page.pdf({ format: 'A4' });
 
-        res.status(200).render('slip', { paySlipData: create, emp: empDetail });
+        // Close browser instance
+        await browser.close();
+
+        // Send the PDF buffer as a response
+        res.set({
+            'Content-Type': 'application/pdf',
+            'Content-Length': pdfBuffer.length,
+            'Content-Disposition': 'attachment; filename="paySlip.pdf"',
+        });
+        const base64 = Buffer.from(pdfBuffer).toString('base64');
+        
+        res.status(201).json(base64);
+
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
