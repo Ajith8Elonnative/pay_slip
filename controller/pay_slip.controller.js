@@ -37,10 +37,8 @@ exports.create = async (req, res) => {
         await create.save()
         const paySlipData = create
         const emp = await empDetails.findOne({ empId: req.body.empId });
-        if (!paySlipData || !emp) {
-            return res.status(404).json({ message: "Employee or Pay Slip data not found" });
-        }
-        return res.render('slip', { paySlipData, emp });
+       
+        res.render('slip', { paySlipData, emp });
 
         // const html = await ejs.renderFile(path.join(__dirname, '../views/slip.ejs'), { paySlipData, emp });
        
