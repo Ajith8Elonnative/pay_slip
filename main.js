@@ -10,6 +10,7 @@ const calRoutes = require('./routes/pay_slip.route.js')
 const app = express()
 
 app.set('view engine', 'ejs')
+
 app.use(bodyparser.json())
 app.use(express.json())
 app.use(cors())

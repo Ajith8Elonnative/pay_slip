@@ -1,6 +1,9 @@
 const paySlip = require('../model/pay_slip.model.js')
 const empDetails = require('../model/emp.model.js')
-
+const ejs = require('ejs')
+const puppeteer = require('puppeteer')
+const path = require('path');
+const fs = require('fs');
 exports.getAll = async (req, res) => {
     try {
         const get = await paySlip.find()
@@ -30,14 +33,34 @@ exports.create = async (req, res) => {
             performanceAndSpecialAllowens,
             totalAmount:calculatedTotalAmount,
         })
-      await create.save()
         
-        //  res.status(201).json(paySlipData)
+        await create.save()
+        const paySlipData = create
+        const emp = await empDetails.findOne({ empId: req.body.empId });
+        res.render('slip', { paySlipData, emp });
+        if (!paySlipData || !emp) {
+            return res.status(404).json({ message: "Employee or Pay Slip data not found" });
+        }
+        return res.render('slip', { paySlipData, emp });
+
+        // const html = await ejs.renderFile(path.join(__dirname, '../views/slip.ejs'), { paySlipData, emp });
+       
+        //   // Use Puppeteer to convert HTML to PDF
+        //   const browser = await puppeteer.launch();
+        //   const page = await browser.newPage();
+        //   await page.setContent(html, { waitUntil: 'networkidle0' });
+  
+        //   // Generate PDF with Puppeteer
+        //   const pdfBuffer = await page.pdf({ format: 'A4', printBackground: true });
+        //   await browser.close();
+  
+        //   // Set PDF headers
+        //   res.contentType("application/pdf");
+        //   res.setHeader("Content-Disposition", "attachment; filename=pay_slip.pdf");
+        //   res.send(pdfBuffer);
+        // res.render('slip', { paySlipData, emp });
+        // fs.writeFileSync("test_pay_slip.pdf", pdfBuffer);
         
-        // const empID = paySlipData.empId
-         const paySlipData = await empDetails.findOne({ empId: req.body.empId });
-        // Check what you are getting here
-        res.render('slip', { paySlipData: create });
        
         
     } catch (error) {

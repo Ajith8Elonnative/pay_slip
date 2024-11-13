@@ -42,7 +42,7 @@
                 <tbody>
                   <tr>
                     <td style="width: 10%;">Employee Name</td>
-                    <td style="width: 10%;"></td>
+                    <td style="width: 10%;"><%= emp.empName %></td>
                   </tr>
                   <tr>
                     <td>Employee Id</td>
@@ -50,7 +50,7 @@
                   </tr>
                   <tr>
                     <td>Employee Designation</td>
-                    <td></td>
+                    <td><%= emp.empDesignation %></td>
                   </tr>
                   <tr>
                     <td>Pay period</td>
@@ -77,19 +77,19 @@
               <tbody>
                 <tr>
                   <td style="width: 10%;">Account Number</td>
-                  <td style="width: 10%;"></td>
+                  <td style="width: 10%;"><%= emp.accountNo %></td>
                 </tr>
                 <tr>
                   <td>Bank</td>
-                  <td></td>
+                  <td><%= emp.bankName %></td>
                 </tr>
                 <tr>
                   <td>Branch</td>
-                  <td></td>
+                  <td><%= emp.branch %></td>
                 </tr>
                 <tr>
                   <td>IFSC Code</td>
-                  <td></td>
+                  <td><%= emp.ifscCode %></td>
                 </tr>
               </tbody>
           </table>
@@ -136,7 +136,7 @@
             <tbody>
               <tr>
                 <td style="width:50%">Total net payable(Cross Earning-Total Reduction)</td>
-                <td style="width:50%"></td>
+                <td style="width:50%"><%= paySlipData.totalAmount %></td>
               </tr>
             </tbody>
           </table>
