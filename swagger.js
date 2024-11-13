@@ -5,7 +5,7 @@ const doc = {
         title: "Generate pay slip",
         description: "version 2.0"
     },
-    host: "pay-slip.onrender.com",
+    host: "pay-slip-1.onrender.com",
     basePath: '/',
     schemes: ['https', 'http'],
     consumes: ['application/json'],
