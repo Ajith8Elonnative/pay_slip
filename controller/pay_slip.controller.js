@@ -59,14 +59,18 @@ exports.create = async (req, res) => {
         await browser.close();
 
         // Send the PDF buffer as a response
-        res.set({
-            'Content-Type': 'application/pdf',
-            'Content-Length': pdfBuffer.length,
-            'Content-Disposition': 'attachment; filename="paySlip.pdf"',
-        });
+        // res.set({
+        //     'Content-Type': 'application/pdf',
+        //     'Content-Length': pdfBuffer.length,
+        //     'Content-Disposition': 'attachment; filename="paySlip.pdf"',
+        // });
         const base64 = Buffer.from(pdfBuffer).toString('base64');
         
-        res.status(201).json(base64);
+        res.status(201).json({
+            message: 'PDF Generated Successefully',
+            code: 'PS-201',
+            base64
+        });
 
     } catch (error) {
         res.status(500).json({ message: error.message })
