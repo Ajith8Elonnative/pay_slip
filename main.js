@@ -10,6 +10,7 @@ const empRoutes = require('./routes/emp.routes.js')
 const calRoutes = require('./routes/pay_slip.route.js')
 const app = express()
 
+
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
 app.use(bodyparser.json())
@@ -23,7 +24,7 @@ if (swaggerDoc.components && swaggerDoc.components.headers) {
 }
 
 app.use('/emp-doc', swaggerUi.serve, swaggerUi.setup(swaggerDoc))
-
+// app.use('/public', express.static(path.join(__dirname, 'public')));
 
 
 const PORT = process.env.PORT || 8000;

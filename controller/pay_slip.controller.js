@@ -49,8 +49,8 @@ exports.create = async (req, res) => {
         const imageUrl = "http://localhost:8000/public/elonImage.png"
         const empDetail = await empDetails.findOne({ empId: req.body.empId });
         const html = await ejs.renderFile( path.join(__dirname, '../views/slip.ejs'), { paySlipData: create, emp: empDetail, imageUrl });
-        const pdfData = await generatePDF(html)
-        const base64Data = pdfData.toString('base64');
+        const buffer = await generatePDF(html)
+        const base64Data = buffer.toString('base64');
         
         res.status(201).json({
             message: 'PDF Generated Successefully',
