@@ -30,54 +30,57 @@
           </div>
         </div>
         <hr />
-             
+
         <div class="pay-slip-header text-center">
           <h2 class="text-primary">Monthly Pay Slip</h2>
         </div>
 
-        <!-- Employee Details Section -->
-        <div class="row mt-4">
-          <div class="col-6">
-            <table style="border: none; border-collapse: collapse;" class="table table-bordered">
-                <tbody>
-                  <tr>
-                    <td style="width: 10%;">Employee Name</td>
-                    <td style="width: 10%;"><%= emp.empName %></td>
-                  </tr>
-                  <tr>
-                    <td>Employee Id</td>
-                    <td><%= paySlipData.empId %></td>
-                  </tr>
-                  <tr>
-                    <td>Employee Designation</td>
-                    <td><%= emp.empDesignation %></td>
-                  </tr>
-                  <tr>
-                    <td>Pay period</td>
-                    <td><%= paySlipData.payPeriod %></td>
-                  </tr>
-                  <tr>
-                    <td>Pay Date</td>
-                    <td><%= paySlipData.paymentDate %></td>
-                  </tr>
-                  <tr>
-                    <td>Paid Days</td>
-                    <td><%= paySlipData.paidDays %></td>
-                  </tr>
-                  <tr>
-                    <td>Loss of pay days</td>
-                    <td><%= paySlipData.lossOfPayDaysAndHour %></td>
-                  </tr>
-                </tbody>
-            </table>
-          </div>
-          <div class="col">
-            <strong >Account Deatails:</strong>
-            <table style="border: none; border-collapse: collapse;" class="table table-bordered mt-3">
+        
+        <div class="row d-flex justify-content-between">
+          <div class="col-4">
+            <table
+              style="border: none; border-collapse: collapse"
+              class="table table-bordered"
+            >
               <tbody>
                 <tr>
-                  <td style="width: 10%;">Account Number</td>
-                  <td style="width: 10%;"><%= emp.accountNo %></td>
+                  <td style="width: 50%;">Employee Name</td>
+                  <td style="width: 50%;"><%= emp.empName %></td>
+                </tr>
+                <tr>
+                  <td>Employee Id</td>
+                  <td><%= paySlipData.empId %></td>
+                </tr>
+                <tr>
+                  <td>Employee Designation</td>
+                  <td><%= emp.empDesignation %></td>
+                </tr>
+                <tr>
+                  <td>Pay period</td>
+                  <td><%= paySlipData.payPeriod %></td>
+                </tr>
+                <tr>
+                  <td>Pay Date</td>
+                  <td><%= paySlipData.paymentDate %></td>
+                </tr>
+                <tr>
+                  <td>Paid Days</td>
+                  <td><%= paySlipData.paidDays %></td>
+                </tr>
+                <tr>
+                  <td>Loss of pay days</td>
+                  <td><%= paySlipData.lossOfPayDaysAndHour %></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-4">
+            <strong>Account Deatails:</strong>
+            <table style="border: none; border-collapse: collapse" class="table table-bordered mt-3">
+              <tbody>
+                <tr>
+                  <td>Account Number</td>
+                  <td><%= emp.accountNo %></td>
                 </tr>
                 <tr>
                   <td>Bank</td>
@@ -92,19 +95,22 @@
                   <td><%= emp.ifscCode %></td>
                 </tr>
               </tbody>
-          </table>
+            </table>
           </div>
         </div>
 
-        <!-- Salary Breakdown Table -->
+      
         <div class="table-responsive">
-          <table style="border: none; border-collapse: collapse;" class="table table-bordered">
+          <table
+            style="border: none; border-collapse: collapse"
+            class="table table-bordered"
+          >
             <thead>
-              <tr style="background:#ccc;">
-                <th style="width: 25%;border-right: none;">Earning</th>
-                <th style="width: 25%;border-left: none;"></th>
-                <th style="width: 25%;border-right: none;">Reducing</th>
-                <th style="width: 25%;border-left: none;"></th>
+              <tr style="background: #ccc">
+                <th style="width: 25%; border-right: none">Earning</th>
+                <th style="width: 25%; border-left: none"></th>
+                <th style="width: 25%; border-right: none">Reducing</th>
+                <th style="width: 25%; border-left: none"></th>
               </tr>
             </thead>
             <tbody>
@@ -115,7 +121,7 @@
                 <td><%= paySlipData.incomeTax %></td>
               </tr>
               <tr>
-                <td>Perfomance and special allowens </td>
+                <td>Perfomance and special allowens</td>
                 <td><%= paySlipData.performanceAndSpecialAllowens %></td>
                 <td>loss</td>
                 <td><%= paySlipData.loss %></td>
@@ -132,28 +138,29 @@
                 <td><strong>Total Reduction</strong></td>
                 <td><%= paySlipData.totalReduction %></td>
               </tr>
-             
-             
             </tbody>
           </table>
         </div>
         <div>
-          <table style="border: none; border-collapse: collapse;" class="table table-bordered">
+          <table
+            style="border: none; border-collapse: collapse"
+            class="table table-bordered"
+          >
             <tbody>
               <tr>
-                <td style="width:50%">Total net payable(Cross Earning-Total Reduction)</td>
-                <td style="width:50%"><%= paySlipData.totalAmount %></td>
+                <td style="width: 50%">
+                  Total net payable(Cross Earning-Total Reduction)
+                </td>
+                <td style="width: 50%"><%= paySlipData.totalAmount %></td>
               </tr>
             </tbody>
           </table>
-         
         </div>
 
-        <!-- Pay Slip Footer -->
+        
         <div class="d-flex justify-content-between my-5 mx-5">
           <p><strong>Employee Signature:</strong> ___________________</p>
           <p><strong>HR Signature:</strong> ___________________</p>
-          
         </div>
       </div>
     </header>

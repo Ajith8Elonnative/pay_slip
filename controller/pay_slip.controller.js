@@ -5,6 +5,8 @@ const path = require('path');
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 
+const generatePDF = require('../controller/generatePdf.js')
+
 
 
 exports.getAll = async (req, res) => {
@@ -46,30 +48,13 @@ exports.create = async (req, res) => {
         await create.save()
         const empDetail = await empDetails.findOne({ empId: req.body.empId });
         const html = await ejs.renderFile( path.join(__dirname, '../views/slip.ejs'), { paySlipData: create, emp: empDetail });
-        // res.status(200).render('slip', { paySlipData: create, emp: empDetail })
-        // Launch puppeteer and convert HTML to PDF
-        const browser = await puppeteer.launch();
-        const page = await browser.newPage();
-        await page.setContent(html, { waitUntil: 'networkidle0' });
-        
-        // Save the PDF to a buffer
-        const pdfBuffer = await page.pdf({ format: 'A4' });
-
-        // Close browser instance
-        await browser.close();
-
-        // Send the PDF buffer as a response
-        // res.set({
-        //     'Content-Type': 'application/pdf',
-        //     'Content-Length': pdfBuffer.length,
-        //     'Content-Disposition': 'attachment; filename="paySlip.pdf"',
-        // });
-        const base64 = Buffer.from(pdfBuffer).toString('base64');
+        const pdfData = await generatePDF(html)
+        const base64Data = pdfData.toString('base64');
         
         res.status(201).json({
             message: 'PDF Generated Successefully',
             code: 'PS-201',
-            base64
+            data:base64Data
         });
 
     } catch (error) {
