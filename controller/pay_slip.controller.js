@@ -2,10 +2,12 @@ const paySlip = require('../model/pay_slip.model.js')
 const empDetails = require('../model/emp.model.js')
 const ejs = require('ejs');
 const path = require('path');
-const puppeteer = require('puppeteer');
+const nodemailer = require('nodemailer')
+require('dotenv').config()
 const fs = require('fs');
 
-const generatePDF = require('../controller/generatePdf.js')
+const generatePDF = require('../controller/generatePdf.js');
+const { info } = require('console');
 
 
 
@@ -24,7 +26,7 @@ exports.create = async (req, res) => {
         const { empId, salary, payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, basics, totalReduction, crossEarning, loss, pf, performanceAndSpecialAllowens, totalAmount } = req.body
         const Loss = Math.round(lossOfPayDaysAndHour * salary / 22)
         const crossEarn = Number(performanceAndSpecialAllowens) + Number(salary)
-        const InPf = Number(pf) + Number(incomeTax) 
+        const InPf = Number(pf) + Number(incomeTax)
         const InPfLoss = Number(pf) + Number(incomeTax) + Loss
         const actualSalary = salary - (lossOfPayDaysAndHour * salary / 22) + (performanceAndSpecialAllowens - InPf);
         const calculatedTotalAmount = Math.round(actualSalary);
@@ -40,7 +42,7 @@ exports.create = async (req, res) => {
             loss: Loss,
             pf,
             crossEarning: crossEarn,
-            totalReduction:InPfLoss,
+            totalReduction: InPfLoss,
             performanceAndSpecialAllowens,
             totalAmount: calculatedTotalAmount,
         })
@@ -48,18 +50,49 @@ exports.create = async (req, res) => {
         await create.save()
         const imageUrl = "http://localhost:8000/public/elonImage.png"
         const empDetail = await empDetails.findOne({ empId: req.body.empId });
-        const html = await ejs.renderFile( path.join(__dirname, '../views/slip.ejs'), { paySlipData: create, emp: empDetail, imageUrl });
+        const html = await ejs.renderFile(path.join(__dirname, '../views/slip.ejs'), { paySlipData: create, emp: empDetail, imageUrl });
         const buffer = await generatePDF(html)
         const base64Data = buffer.toString('base64');
-        
+
         res.status(201).json({
             message: 'PDF Generated Successefully',
             code: 'PS-201',
-            data:base64Data
+            data: base64Data
         });
 
     } catch (error) {
         res.status(500).json({ message: error.message })
+    }
+}
+
+exports.sendEmail = async (req, res) => {
+    try {
+        const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: process.env.email_user,
+                pass: process.env.email_password
+            },
+        });
+
+        const mailOptions = {
+            from: process.env.email_user,
+            to: [process.env.email_user],
+            subject: "hi this is test process",
+            text: 'This is a test email sent using Nodemailer.', 
+            // html: '<h1>Hello!</h1><p>This is a test email sent using <b>Nodemailer</b>.</p>'
+        };
+
+        transporter.sendMail(mailOptions,(error,info)=>{
+            if(error){
+                return console.log("error occur",error)
+            }
+            console.log("mail send succcessfully")
+        })
+
+        res.status(200).json("mail successfully")
+    } catch (error) {
+        res.status(500).json({message:error.message})
     }
 }
 

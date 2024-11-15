@@ -5,6 +5,10 @@ const schema = new mongoose.Schema({
         type:String,
         required:true
     },
+    empName:{
+        type:String,
+        
+    },
     salary:{
         type:String,
         required:true

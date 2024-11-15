@@ -6,6 +6,8 @@ route.get('/getAll', usercontrol.getAll)
 
 route.post('/create', usercontrol.create)
 
+route.post('/create/email', usercontrol.sendEmail)
+
 route.put('/update/:id', usercontrol.update)
 
 route.delete('/delete/:id', usercontrol.delete)

@@ -20,6 +20,7 @@
     "mongoose": "^8.8.0",
     "node": "^22.11.0",
     "node.js": "^0.0.1-security",
+    "nodemailer": "^6.9.16",
     "nodemon": "^3.1.7",
     "puppeteer": "^23.7.1",
     "swagger-autogen": "^2.23.7",
