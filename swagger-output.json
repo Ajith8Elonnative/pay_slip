@@ -199,9 +199,6 @@
                 "salary": {
                   "example": "any"
                 },
-                "pdf": {
-                  "example": "any"
-                },
                 "payPeriod": {
                   "example": "any"
                 },
@@ -252,9 +249,17 @@
         }
       }
     },
-    "/Pay_slip_calculate/create/email": {
+    "/Pay_slip_calculate/create/email/{email}": {
       "post": {
         "description": "",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"

@@ -23,7 +23,7 @@ exports.getAll = async (req, res) => {
 
 exports.create = async (req, res) => {
     try {
-        const { empId,empName, salary,pdf, payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, basics, totalReduction, crossEarning, loss, pf, performanceAndSpecialAllowens, totalAmount } = req.body
+        const { empId,empName, salary, payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, basics, totalReduction, crossEarning, loss, pf, performanceAndSpecialAllowens, totalAmount } = req.body
         const Loss = Math.round(lossOfPayDaysAndHour * salary / 22)
         const crossEarn = Number(performanceAndSpecialAllowens) + Number(salary)
         const InPf = Number(pf) + Number(incomeTax)
@@ -34,7 +34,6 @@ exports.create = async (req, res) => {
             empId,
             empName,
             salary,
-            pdf,
             payPeriod,
             paymentDate,
             paidDays,
@@ -52,6 +51,7 @@ exports.create = async (req, res) => {
         await create.save()
         const imageUrl = "http://localhost:8000/public/elonImage.png"
         const empDetail = await empDetails.findOne({ empId: req.body.empId });
+       
         const html = await ejs.renderFile(path.join(__dirname, '../views/slip.ejs'), { paySlipData: create, emp: empDetail, imageUrl });
         const buffer = await generatePDF(html)
         const base64Data = buffer.toString('base64');
@@ -89,7 +89,9 @@ exports.sendEmail = async (req, res) => {
 
         const mailOptions = {
             from: process.env.email_user,
-            to: [process.env.email_user],
+            to: [req.params.email,
+
+            ],
             subject: "hi this is test process",
             text: 'This is a test email sent using Nodemailer.', 
             html: '<h1>Hello!</h1><p>This is a test email sent using <b>Nodemailer</b>.</p>',

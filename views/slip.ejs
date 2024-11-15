@@ -18,8 +18,8 @@
                 
 
             
-                <div  style=" text-align: center;font-size: 14px;">
-                    <table style=" border: 1px solid #8d8d8d; border-collapse: collapse; margin-top: 0px;width: 70%;">
+                <div  style="text-align: center;font-size: 14px;display: flex;flex-direction: column; justify-content: center;">
+                    <table style=" border: 1px solid #8d8d8d; border-collapse: collapse; margin-left: auto; margin-right: auto;width: 70%;">
                         <tbody>
                             <tr>
                                 <td style="padding: 4px; width: 50%; border: 1px solid #8d8d8d;">Employee Name</td>
@@ -54,8 +54,8 @@
                 </div>
 
                 <div style="margin-top:0px;">
-                    <strong>Account Details:</strong>
-                    <table style=" border: 1px solid #8d8d8d; border-collapse: collapse; margin-top: 10px;width: 70%;text-align: center;font-size: 14px;">
+                    <strong style="display: block; text-align: center;">Account Details:</strong>
+                    <table style=" border: 1px solid #8d8d8d; border-collapse: collapse; margin-top: 10px;width: 70%;text-align: center;font-size: 14px; margin-left: auto; margin-right: auto;">
                         <tbody>
                             <tr>
                                 <td style="padding: 4px; border: 1px solid #8d8d8d;">Account Number</td>
@@ -121,14 +121,14 @@
                 <table style="width: 100%; border: 1px solid #8d8d8d; border-collapse: collapse; margin-top: 10px;">
                     <tbody>
                         <tr>
-                            <td style="padding: 10px; width: 50%; border: 1px solid #8d8d8d;">Total Net Payable (Gross Earnings - Total Reduction)</td>
-                            <td style="padding: 10px; width: 50%; border: 1px solid #8d8d8d;"><%= paySlipData.totalAmount %></td>
+                            <td style="padding: 6px; width: 50%; border: 1px solid #8d8d8d;">Total Net Payable (Gross Earnings - Total Reduction)</td>
+                            <td style="padding: 6px; width: 50%; border: 1px solid #8d8d8d;"><%= paySlipData.totalAmount %></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <div style="display:flex; margin-top: 10px; margin-bottom: 10px;">
+            <div style="margin-top: 10px; margin-bottom: 10px; text-align: right;">
                 
                 <p style=" display: inline-block;"><strong >HR Signature:</strong> ___________________</p>
             </div>

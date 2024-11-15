@@ -7,7 +7,6 @@ const schema = new mongoose.Schema({
     },
     empName:{
         type:String,
-        
     },
     salary:{
         type:String,
