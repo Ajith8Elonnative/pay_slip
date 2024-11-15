@@ -5,63 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pay Slip</title>
 </head>
-<body style="font-family: Arial, sans-serif;">
+<body style="font-family:'Times New Roman', Times, serif;">
 
-          <div style="border: 1px solid black; ">
-        
-            <div style="display: flex; justify-content:space-between; align-items: center;">
-    
-              <!-- <div style="flex: 2; text-align: center;">
-               <img src="<%= imageUrl %>" alt="Elon Image" style="width: 100px; border-radius: 50%;" />
-              </div> -->
-    
-              
-                <div style="flex: 9; text-align: center;">
-                <img src="<%= imageUrl %>" alt="Elon Image" style="width: 100px; border-radius: 50%;" />
-                <h2 style="color: darkgreen; font-size: 24px;">ELON NATIVE SYSTEM</h2><br>
-                <h4 style="color: red; font-size: 20px;">DO IT WITH PASSION</h4>
-                <p style="font-size: 16px;">182, Velmurugan Nadar Street, Mamsapuram</p>
-                </div>
-            </div>
+    <div style="border: 1px solid black; ">
+                 <div style="text-align: center;">
+                    <h2 style="color: darkgreen; font-size: 20px;padding: 0;margin-top: 8px;">ELON NATIVE SYSTEM</h2>
+                    <h4 style="color: red; font-size: 16px;padding: 0;margin: 8px;">DO IT WITH PASSION</h4>
+                    <p style="padding: 0;margin: 0;">182, Velmurugan Nadar Street, Mamsapuram</p>
+                </div> <hr />
+                
+                    <h2 style="color: rgba(43, 204, 22, 0.966);text-align: center; margin-top:5px;font-size: 18px;">Monthly Pay Slip</h2>
+                
 
-
-            <hr />
-
-            <div style="text-align: center; margin-top: 20px; margin-bottom: 10px;">
-                <h2 style="color: blue;">Monthly Pay Slip</h2>
-            </div>
-
-            <div style="display: flex; justify-content: space-between;gap:10px;">
-                <div  style="flex: 6; text-align: center;">
-                    <table style="width: 100%; border: 1px solid #8d8d8d; border-collapse: collapse; margin-top: 10px;">
+            
+                <div  style=" text-align: center;">
+                    <table style=" border: 1px solid #8d8d8d; border-collapse: collapse; margin-top: 0px;width: 70%;">
                         <tbody>
                             <tr>
-                                <td style="padding: 10px; width: 50%; border: 1px solid #8d8d8d;">Employee Name</td>
-                                <td style="padding: 10px; width: 50%; border: 1px solid #8d8d8d;"><%= emp.empName %></td>
+                                <td style="padding: 4px; width: 50%; border: 1px solid #8d8d8d;">Employee Name</td>
+                                <td style="padding: 4px; width: 50%; border: 1px solid #8d8d8d;"><%= emp.empName %></td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px; border: 1px solid #8d8d8d;">Employee Id</td>
-                                <td style="padding: 10px; border: 1px solid #8d8d8d;"><%= paySlipData.empId %></td>
+                                <td style="padding: 4px; border: 1px solid #8d8d8d;">Employee Id</td>
+                                <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= paySlipData.empId %></td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px; border: 1px solid #8d8d8d;">Employee Designation</td>
-                                <td style="padding: 10px; border: 1px solid #8d8d8d;"><%= emp.empDesignation %></td>
+                                <td style="padding: 4px; border: 1px solid #8d8d8d;">Employee Designation</td>
+                                <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= emp.empDesignation %></td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px; border: 1px solid #8d8d8d;">Pay Period</td>
-                                <td style="padding: 10px; border: 1px solid #8d8d8d;"><%= paySlipData.payPeriod %></td>
+                                <td style="padding: 4px; border: 1px solid #8d8d8d;">Pay Period</td>
+                                <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= paySlipData.payPeriod %></td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px; border: 1px solid #8d8d8d;">Pay Date</td>
-                                <td style="padding: 10px; border: 1px solid #8d8d8d;"><%= paySlipData.paymentDate %></td>
+                                <td style="padding: 4px; border: 1px solid #8d8d8d;">Pay Date</td>
+                                <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= paySlipData.paymentDate %></td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px; border: 1px solid #8d8d8d;">Paid Days</td>
-                                <td style="padding: 10px; border: 1px solid #8d8d8d;"><%= paySlipData.paidDays %></td>
+                                <td style="padding: 4px; border: 1px solid #8d8d8d;">Paid Days</td>
+                                <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= paySlipData.paidDays %></td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px; border: 1px solid #8d8d8d;">Loss of Pay Days</td>
-                                <td style="padding: 10px; border: 1px solid #8d8d8d;"><%= paySlipData.lossOfPayDaysAndHour %></td>
+                                <td style="padding: 4px; border: 1px solid #8d8d8d;">Loss of Pay Days</td>
+                                <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= paySlipData.lossOfPayDaysAndHour %></td>
                             </tr>
                         </tbody>
                     </table>
@@ -69,63 +55,63 @@
 
                 <div style="margin-top:0px;">
                     <strong>Account Details:</strong>
-                    <table style="width: 100%; border: 1px solid #8d8d8d; border-collapse: collapse; margin-top: 10px;">
+                    <table style=" border: 1px solid #8d8d8d; border-collapse: collapse; margin-top: 10px;width: 70%;text-align: center;">
                         <tbody>
                             <tr>
-                                <td style="padding: 10px; border: 1px solid #8d8d8d;">Account Number</td>
-                                <td style="padding: 10px; border: 1px solid #8d8d8d;"><%= emp.accountNo %></td>
+                                <td style="padding: 4px; border: 1px solid #8d8d8d;">Account Number</td>
+                                <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= emp.accountNo %></td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px; border: 1px solid #8d8d8d;">Bank</td>
-                                <td style="padding: 10px; border: 1px solid #8d8d8d;"><%= emp.bankName %></td>
+                                <td style="padding: 4px; border: 1px solid #8d8d8d;">Bank</td>
+                                <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= emp.bankName %></td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px; border: 1px solid #8d8d8d;">Branch</td>
-                                <td style="padding: 10px; border: 1px solid #8d8d8d;"><%= emp.branch %></td>
+                                <td style="padding: 4px; border: 1px solid #8d8d8d;">Branch</td>
+                                <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= emp.branch %></td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px; border: 1px solid #8d8d8d;">IFSC Code</td>
-                                <td style="padding: 10px; border: 1px solid #8d8d8d;"><%= emp.ifscCode %></td>
+                                <td style="padding: 4px; border: 1px solid #8d8d8d;">IFSC Code</td>
+                                <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= emp.ifscCode %></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-            </div>
+            
 
             <div style="margin-top: 0px;">
                 <table style="width: 100%; border: 1px solid #8d8d8d; border-collapse: collapse; margin-top: 10px;">
                     <thead>
                         <tr style="background-color: #ccc; text-align: center;">
-                            <th style="width: 25%; border-right: none; padding: 10px;">Earning</th>
-                            <th style="width: 25%; border-left: none; padding: 10px;"></th>
-                            <th style="width: 25%; border-right: none; padding: 10px;">Reducing</th>
-                            <th style="width: 25%; border-left: none; padding: 10px;"></th>
+                            <th style="width: 35%; border-right: none; padding: 10px;">Earning</th>
+                            <th style="width: 15%; border-left: none; padding: 10px;"></th>
+                            <th style="width: 35%; border-right: none; padding: 10px;">Reducing</th>
+                            <th style="width: 15%; border-left: none; padding: 10px;"></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td style="padding: 10px; border: 1px solid #8d8d8d;">Basic</td>
-                            <td style="padding: 10px; border: 1px solid #8d8d8d;"><%= paySlipData.basics %></td>
-                            <td style="padding: 10px; border: 1px solid #8d8d8d;">Income Tax</td>
-                            <td style="padding: 10px; border: 1px solid #8d8d8d;"><%= paySlipData.incomeTax %></td>
+                            <td style="padding: 4px; border: 1px solid #8d8d8d;">Basic</td>
+                            <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= paySlipData.basics %></td>
+                            <td style="padding: 4px; border: 1px solid #8d8d8d;">Income Tax</td>
+                            <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= paySlipData.incomeTax %></td>
                         </tr>
                         <tr>
-                            <td style="padding: 10px; border: 1px solid #8d8d8d;">Performance and Special Allowances</td>
-                            <td style="padding: 10px; border: 1px solid #8d8d8d;"><%= paySlipData.performanceAndSpecialAllowens %></td>
-                            <td style="padding: 10px; border: 1px solid #8d8d8d;">Loss</td>
-                            <td style="padding: 10px; border: 1px solid #8d8d8d;"><%= paySlipData.loss %></td>
+                            <td style="padding: 4px; border: 1px solid #8d8d8d;">Performance and Special Allowances</td>
+                            <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= paySlipData.performanceAndSpecialAllowens %></td>
+                            <td style="padding: 4px; border: 1px solid #8d8d8d;">Loss</td>
+                            <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= paySlipData.loss %></td>
                         </tr>
                         <tr>
-                            <td style="padding: 10px; border: 1px solid #8d8d8d;"><strong>Gross Earnings</strong></td>
-                            <td style="padding: 10px; border: 1px solid #8d8d8d;"><%= paySlipData.crossEarning %></td>
-                            <td style="padding: 10px; border: 1px solid #8d8d8d;">PF</td>
-                            <td style="padding: 10px; border: 1px solid #8d8d8d;"><%= paySlipData.pf %></td>
+                            <td style="padding: 4px; border: 1px solid #8d8d8d;"><strong>Gross Earnings</strong></td>
+                            <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= paySlipData.crossEarning %></td>
+                            <td style="padding: 4px; border: 1px solid #8d8d8d;">PF</td>
+                            <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= paySlipData.pf %></td>
                         </tr>
                         <tr>
-                            <td style="padding: 10px; border: 1px solid #8d8d8d;"></td>
-                            <td style="padding: 10px; border: 1px solid #8d8d8d;"></td>
-                            <td style="padding: 10px; border: 1px solid #8d8d8d;"><strong>Total Reduction</strong></td>
-                            <td style="padding: 10px; border: 1px solid #8d8d8d;"><%= paySlipData.totalReduction %></td>
+                            <td style="padding: 4px; border: 1px solid #8d8d8d;"></td>
+                            <td style="padding: 4px; border: 1px solid #8d8d8d;"></td>
+                            <td style="padding: 4px; border: 1px solid #8d8d8d;"><strong>Total Reduction</strong></td>
+                            <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= paySlipData.totalReduction %></td>
                         </tr>
                     </tbody>
                 </table>
@@ -142,11 +128,11 @@
                 </table>
             </div>
 
-            <div style="display:flex; margin-top: 10px; margin-bottom: 10px; margin-left: 40px;">
-                <p style="flex:6;display: inline-block; "><strong >Employee Signature:</strong> ___________________</p>
-                <p style="display: inline-block;"><strong >HR Signature:</strong> ___________________</p>
+            <div style="display:flex; margin-top: 10px; margin-bottom: 10px;">
+                <p style="display: inline-block;justify-self: start; "><strong >Employee Signature:</strong> ___________________</p>
+                <p style="display: flex; display: inline-block;justify-content: end;"><strong >HR Signature:</strong> ___________________</p>
             </div>
-        </header>
+        
     </div>
 
 </body>
