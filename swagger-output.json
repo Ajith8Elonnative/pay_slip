@@ -60,6 +60,9 @@
                 "empName": {
                   "example": "any"
                 },
+                "email": {
+                  "example": "any"
+                },
                 "empDesignation": {
                   "example": "any"
                 },
@@ -109,6 +112,9 @@
                   "example": "any"
                 },
                 "empName": {
+                  "example": "any"
+                },
+                "email": {
                   "example": "any"
                 },
                 "empDesignation": {
