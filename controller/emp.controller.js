@@ -21,10 +21,11 @@ exports.getId = async(req, res) =>{
 
 exports.create = async (req, res) => {
     try {
-        const { empId, empName, empDesignation, accountNo, bankName, branch, ifscCode } = req.body
+        const { empId, empName,email, empDesignation, accountNo, bankName, branch, ifscCode } = req.body
         const empCreate = await new result({
             empId,
             empName,
+            email,
             empDesignation,
             accountNo,
             bankName,
@@ -41,11 +42,12 @@ exports.create = async (req, res) => {
 
 exports.update = async (req, res) => {
     try {
-        const { empId, empName, empDesignation, accountNo, bankName, branch, ifscCode } = req.body
+        const { empId, empName,email, empDesignation, accountNo, bankName, branch, ifscCode } = req.body
         const updateEmp = await result.findByIdAndUpdate({ _id: req.params.id},
             {
                 empId,
                 empName,
+                email,
                 empDesignation,
                 accountNo,
                 bankName,
