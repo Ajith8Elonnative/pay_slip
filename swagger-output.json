@@ -193,7 +193,13 @@
                 "empId": {
                   "example": "any"
                 },
+                "empName": {
+                  "example": "any"
+                },
                 "salary": {
+                  "example": "any"
+                },
+                "pdf": {
                   "example": "any"
                 },
                 "payPeriod": {
@@ -276,6 +282,9 @@
               "type": "object",
               "properties": {
                 "empId": {
+                  "example": "any"
+                },
+                "empName": {
                   "example": "any"
                 },
                 "salary": {

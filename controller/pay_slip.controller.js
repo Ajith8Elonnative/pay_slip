@@ -23,7 +23,7 @@ exports.getAll = async (req, res) => {
 
 exports.create = async (req, res) => {
     try {
-        const { empId, salary, payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, basics, totalReduction, crossEarning, loss, pf, performanceAndSpecialAllowens, totalAmount } = req.body
+        const { empId,empName, salary,pdf, payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, basics, totalReduction, crossEarning, loss, pf, performanceAndSpecialAllowens, totalAmount } = req.body
         const Loss = Math.round(lossOfPayDaysAndHour * salary / 22)
         const crossEarn = Number(performanceAndSpecialAllowens) + Number(salary)
         const InPf = Number(pf) + Number(incomeTax)
@@ -32,7 +32,9 @@ exports.create = async (req, res) => {
         const calculatedTotalAmount = Math.round(actualSalary);
         const create = await new paySlip({
             empId,
+            empName,
             salary,
+            pdf,
             payPeriod,
             paymentDate,
             paidDays,
@@ -53,7 +55,15 @@ exports.create = async (req, res) => {
         const html = await ejs.renderFile(path.join(__dirname, '../views/slip.ejs'), { paySlipData: create, emp: empDetail, imageUrl });
         const buffer = await generatePDF(html)
         const base64Data = buffer.toString('base64');
+        const pdfBuffer = Buffer.from(base64Data, 'base64');
 
+        fs.writeFile('output.pdf', pdfBuffer, (err) => {
+            if (err) {
+              console.error('Error writing PDF file:', err);
+            } else {
+              console.log('PDF successfully created: output.pdf');
+            }
+        });
         res.status(201).json({
             message: 'PDF Generated Successefully',
             code: 'PS-201',
@@ -67,6 +77,8 @@ exports.create = async (req, res) => {
 
 exports.sendEmail = async (req, res) => {
     try {
+        const pdfBuffer = fs.readFileSync('./output.pdf');
+
         const transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
@@ -80,7 +92,14 @@ exports.sendEmail = async (req, res) => {
             to: [process.env.email_user],
             subject: "hi this is test process",
             text: 'This is a test email sent using Nodemailer.', 
-            // html: '<h1>Hello!</h1><p>This is a test email sent using <b>Nodemailer</b>.</p>'
+            html: '<h1>Hello!</h1><p>This is a test email sent using <b>Nodemailer</b>.</p>',
+            attachments: [
+                {
+                    filename: 'output.pdf', // File name to be shown in email
+                    content: pdfBuffer, // File content
+                    contentType: 'application/pdf', // MIME type of the attachment
+                },
+            ],
         };
 
         transporter.sendMail(mailOptions,(error,info)=>{
@@ -89,7 +108,13 @@ exports.sendEmail = async (req, res) => {
             }
             console.log("mail send succcessfully")
         })
-
+        await fs.unlink('./output.pdf', (err) => {
+            if (err) {
+                console.error('Error deleting file:', err);
+            } else {
+                console.log('File successfully deleted!');
+            }
+        });
         res.status(200).json("mail successfully")
     } catch (error) {
         res.status(500).json({message:error.message})
@@ -98,7 +123,7 @@ exports.sendEmail = async (req, res) => {
 
 exports.update = async (req, res) => {
     try {
-        const { empId, salary, payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, loss, pf, performanceAndSpecialAllowens, totalAmount } = req.body;
+        const { empId,empName, salary, payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, loss, pf, performanceAndSpecialAllowens, totalAmount } = req.body;
         const InPfLoss = Number(pf) + Number(incomeTax) + Number(loss)
 
         const actualSalary = salary - (lossOfPayDaysAndHour * salary / 22) + (performanceAndSpecialAllowens - InPfLoss);
@@ -106,6 +131,7 @@ exports.update = async (req, res) => {
         const update = await paySlip.findByIdAndUpdate({ _id: req.params.id },
             {
                 empId,
+                empName,
                 salary,
                 payPeriod,
                 paymentDate,
