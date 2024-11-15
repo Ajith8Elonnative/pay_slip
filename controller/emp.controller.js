@@ -1,5 +1,4 @@
 const result = require('../model/emp.model.js')
-
 exports.getAll = async (req, res) => {
     try {
         const getEmp = await result.find()
