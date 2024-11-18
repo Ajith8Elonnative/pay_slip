@@ -49,9 +49,9 @@ exports.create = async (req, res) => {
         })
 
         const search = await paySlip.findOne({$and: [
-            { empId },   // Match name
+            { empId },  
             { payPeriod } 
-                  // Match age
+                 
         ]}) 
         if(!search){
             await create.save()
@@ -81,7 +81,7 @@ exports.create = async (req, res) => {
         if(!validId){
             await pdfBase.save()
         }
-        es.status(201).json({
+        res.status(201).json({
             message: 'PDF Generated Successefully',
             code: 'PS-201',
             data: base64Data
