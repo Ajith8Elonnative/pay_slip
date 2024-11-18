@@ -5,9 +5,9 @@ const path = require('path');
 const nodemailer = require('nodemailer')
 require('dotenv').config()
 const fs = require('fs');
-
 const generatePDF = require('../controller/generatePdf.js');
 const { info } = require('console');
+const basefile = require('../model/monthly_slip.model.js')
 
 
 
@@ -47,24 +47,36 @@ exports.create = async (req, res) => {
             performanceAndSpecialAllowens,
             totalAmount: calculatedTotalAmount,
         })
+        const search = await paySlip.findOne({empId:empId}) 
+        if(!search){
+            await create.save()
+        }else{
+            res.json({
+               message:"This id already exsits" 
+            })
+        }
+        
+        const imagePath = path.join(__dirname, '../public/elonImage.png');
+        const imageBuffer = fs.readFileSync(imagePath);
+        const base64Image = `data:image/png;base64,${imageBuffer.toString('base64')}`;
 
-        await create.save()
-        const imageUrl = "http://localhost:8000/public/elonImage.png"
         const empDetail = await empDetails.findOne({ empId: req.body.empId });
        
-        const html = await ejs.renderFile(path.join(__dirname, '../views/slip.ejs'), { paySlipData: create, emp: empDetail, imageUrl });
+        const html = await ejs.renderFile(path.join(__dirname, '../views/slip.ejs'), { paySlipData: create, emp: empDetail,  imageUrl: base64Image, });
         const buffer = await generatePDF(html)
         const base64Data = buffer.toString('base64');
-        const pdfBuffer = Buffer.from(base64Data, 'base64');
-
-        fs.writeFile('output.pdf', pdfBuffer, (err) => {
-            if (err) {
-              console.error('Error writing PDF file:', err);
-            } else {
-              console.log('PDF successfully created: output.pdf');
-            }
-        });
-        res.status(201).json({
+        const [day, month, year] =await paymentDate.split('/')
+        const pdfBase = await new basefile({
+            file:base64Data,
+            employeeId:empId,
+            month:month,
+            year:year
+        })
+        const validId = await basefile.findOne({empId:empId}) 
+        if(!validId){
+            await pdfBase.save()
+        }
+        es.status(201).json({
             message: 'PDF Generated Successefully',
             code: 'PS-201',
             data: base64Data
@@ -74,6 +86,7 @@ exports.create = async (req, res) => {
         res.status(500).json({ message: error.message })
     }
 }
+
 
 exports.sendEmail = async (req, res) => {
     try {
@@ -123,12 +136,15 @@ exports.sendEmail = async (req, res) => {
     }
 }
 
+
 exports.update = async (req, res) => {
     try {
-        const { empId,empName, salary, payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, loss, pf, performanceAndSpecialAllowens, totalAmount } = req.body;
-        const InPfLoss = Number(pf) + Number(incomeTax) + Number(loss)
-
-        const actualSalary = salary - (lossOfPayDaysAndHour * salary / 22) + (performanceAndSpecialAllowens - InPfLoss);
+        const { empId,empName, salary, payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, basics, totalReduction, crossEarning, loss, pf, performanceAndSpecialAllowens, totalAmount } = req.body
+        const Loss = Math.round(lossOfPayDaysAndHour * salary / 22)
+        const crossEarn = Number(performanceAndSpecialAllowens) + Number(salary)
+        const InPf = Number(pf) + Number(incomeTax)
+        const InPfLoss = Number(pf) + Number(incomeTax) + Loss
+        const actualSalary = salary - (lossOfPayDaysAndHour * salary / 22) + (performanceAndSpecialAllowens - InPf);
         const calculatedTotalAmount = Math.round(actualSalary);
         const update = await paySlip.findByIdAndUpdate({ _id: req.params.id },
             {
@@ -139,21 +155,44 @@ exports.update = async (req, res) => {
                 paymentDate,
                 paidDays,
                 lossOfPayDaysAndHour,
+                basics: salary,
                 incomeTax,
-                loss,
+                loss: Loss,
                 pf,
+                crossEarning: crossEarn,
+                totalReduction: InPfLoss,
                 performanceAndSpecialAllowens,
-                totalAmount: calculatedTotalAmount
+                totalAmount: calculatedTotalAmount,
             },
             {
                 new: true
             }
         )
+        const imagePath = path.join(__dirname, '../public/elonImage.png');
+        const imageBuffer = fs.readFileSync(imagePath);
+        const base64Image = `data:image/png;base64,${imageBuffer.toString('base64')}`;
+        const empDetail = await empDetails.findOne({ empId: req.body.empId });
+        const html = await ejs.renderFile(path.join(__dirname, '../views/slip.ejs'), { paySlipData: create, emp: empDetail,  imageUrl: base64Image, });
+        const buffer = await generatePDF(html)
+        const base64Data = buffer.toString('base64');
+
+        const [day, month, year] =await paymentDate.split('/')
+        const pdfBase = await new basefile({
+            file:base64Data,
+            employeeId:empId,
+            month:month,
+            year:year
+        })
+        const validId = await basefile.findOne({empId:empId}) 
+        if(!validId){
+            await pdfBase.save()
+        }
         res.status(201).json(update)
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
 }
+
 
 exports.delete = async (req, res) => {
     try {

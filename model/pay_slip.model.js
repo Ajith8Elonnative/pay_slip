@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 
 const schema = new mongoose.Schema({
+    base64:{
+        type:String
+    },
     empId:{
         type:String,
         required:true

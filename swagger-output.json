@@ -240,8 +240,8 @@
           }
         ],
         "responses": {
-          "201": {
-            "description": "Created"
+          "200": {
+            "description": "OK"
           },
           "500": {
             "description": "Internal Server Error"
@@ -310,6 +310,15 @@
                 "incomeTax": {
                   "example": "any"
                 },
+                "basics": {
+                  "example": "any"
+                },
+                "totalReduction": {
+                  "example": "any"
+                },
+                "crossEarning": {
+                  "example": "any"
+                },
                 "loss": {
                   "example": "any"
                 },
@@ -347,6 +356,19 @@
             "type": "string"
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/pay_slip_savePdf/get_slip": {
+      "get": {
+        "description": "",
         "responses": {
           "200": {
             "description": "OK"
