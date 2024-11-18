@@ -47,7 +47,12 @@ exports.create = async (req, res) => {
             performanceAndSpecialAllowens,
             totalAmount: calculatedTotalAmount,
         })
-        const search = await paySlip.findOne({empId:empId}) 
+
+        const search = await paySlip.findOne({$and: [
+            { empId },   // Match name
+            { payPeriod } 
+                  // Match age
+        ]}) 
         if(!search){
             await create.save()
         }else{

@@ -40,10 +40,11 @@ exports.getSlip = async(req, res) =>{
         const paySlipRetrieve = await slip.findOne({ employeeId, month, year });
 
         if (!paySlipRetrieve) {
-            console.log('Payslip not found');
-            return;
+           res.status(200).json({
+            message:"data not found"
+           })
         }
-        console.log(paySlipRetrieve.file)
+        
         res.json(paySlipRetrieve.file)
     } catch (error) {
         res.status(500).json({message:error.message})
