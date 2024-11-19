@@ -24,7 +24,7 @@ exports.getAll = async (req, res) => {
 exports.create = async (req, res) => {
     try {
         const { empId,empName, salary, totalWorkigDays, payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, basics, totalReduction, crossEarning, loss, pf, performanceAndSpecialAllowens, totalAmount } = req.body
-        const Loss = Math.round(lossOfPayDaysAndHour * salary / 22)
+        const Loss = Math.round(lossOfPayDaysAndHour * salary / totalWorkigDays)
         const crossEarn = Number(performanceAndSpecialAllowens) + Number(salary)
         const InPf = Number(pf) + Number(incomeTax)
         const InPfLoss = Number(pf) + Number(incomeTax) + Loss
@@ -137,7 +137,7 @@ exports.sendEmail = async (req, res) => {
 exports.update = async (req, res) => {
     try {
         const { empId,empName, salary, payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, basics, totalReduction, crossEarning, loss, pf, performanceAndSpecialAllowens, totalAmount } = req.body
-        const Loss = Math.round(lossOfPayDaysAndHour * salary / 22)
+        const Loss = Math.round(lossOfPayDaysAndHour * salary / totalWorkigDays)
         const crossEarn = Number(performanceAndSpecialAllowens) + Number(salary)
         const InPf = Number(pf) + Number(incomeTax)
         const InPfLoss = Number(pf) + Number(incomeTax) + Loss
@@ -181,10 +181,9 @@ exports.update = async (req, res) => {
             month:month,
             year:year
         })
-        const validId = await basefile.find({empId:empId, month:month, year:year}) 
-        if(validId.length === 0){
-            await pdfBase.save()
-        }
+        await basefile.findByIdAndDelete({empId:empId, month:month, year:year}) 
+        await pdfBase.save()
+       
         res.status(201).json(update)
     } catch (error) {
         res.status(500).json({ message: error.message })

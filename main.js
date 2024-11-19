@@ -9,6 +9,7 @@ require('dotenv').config()
 const empRoutes = require('./routes/emp.routes.js')
 const calRoutes = require('./routes/pay_slip.route.js')
 const saveRoutes = require('./routes/monthly_slip.route.js')
+const loginRoutes = require('./routes/login.routes.js')
 const app = express()
 
 
@@ -38,6 +39,7 @@ mongoose.connect(process.env.MONGO_URL)
 app.use('/Pay_slip_employee', empRoutes)
 app.use('/Pay_slip_calculate', calRoutes)
 app.use('/pay_slip_savePdf', saveRoutes)
+app.use('/pay_slip_login', loginRoutes)
 
 app.listen(PORT, () => {
     console.log("servers is running on :", PORT)

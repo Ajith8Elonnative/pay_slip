@@ -1,144 +1,272 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pay Slip</title>
-</head>
-<body style="font-family:'Times New Roman', Times, serif;">
+  </head>
+  <body style="font-family: 'Times New Roman', Times, serif">
+    <div style="border: 1px solid black; display: flex; align-items: center">
+      <div
+        style="
+        margin-top: 10px;
+          display: -webkit-flex;
+          display: flex;
+          -webkit-flex-direction: row;
+          flex-direction: row;
+          align-items: center;
+        "
+      >
+        <img
+          style="border-radius: 50%; width: 70px;height: 70px; margin-left:4%;"
+          src="<%= imageUrl %>"
+          alt="logo"
+        />
 
-        <div style="border: 1px solid black; display: flex; align-items: center;">
-                <div>
-                    <div style="flex: 1; padding: 10px;">
-                        <img src="<%= imageUrl %>" alt="logo">
-                </div>
-                 <div style="text-align: center;">
-                    <h2 style="color: darkgreen; font-size: 20px;padding: 0;margin-top: 8px;">ELON NATIVE SYSTEM</h2>
-                    <h4 style="color: red; font-size: 16px;padding: 0;margin-bottom: 8px;">DO IT WITH PASSION</h4>
-                    <p style="padding: 0;margin: 0;">182, Velmurugan Nadar Street, Mamsapuram</p>
-                </div> 
-            </div> 
-                <hr />
-                
-                    <h2 style="color: rgba(27, 138, 12, 0.966);text-align: center; margin-top:5px;font-size: 18px;">Monthly Pay Slip</h2>
-                
+        <div style="margin-left:18%;margin-right: auto;text-align: center;">
+          <h2 style="color: darkgreen; font-size: 20px; margin: 0">
+            ELON NATIVE SYSTEM
+          </h2>
+          <h4 style="color: red; font-size: 16px; margin: 8px 0">
+            DO IT WITH PASSION
+          </h4>
+          <p style="margin: 0">182, Velmurugan Nadar Street, Mamsapuram</p>
+        </div>
+      </div>
+      <hr />
 
-            
-                <div  style="text-align: center;font-size: 14px;display: flex;flex-direction: column; justify-content: center;">
-                    <table style=" border: 1px solid #8d8d8d; border-collapse: collapse; margin-left: auto; margin-right: auto;width: 70%;">
-                        <tbody>
-                            <tr>
-                                <td style="padding: 4px; width: 50%; border: 1px solid #8d8d8d;">Employee Name</td>
-                                <td style="padding: 4px; width: 50%; border: 1px solid #8d8d8d;"><%= emp.empName %></td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 4px; border: 1px solid #8d8d8d;">Employee Id</td>
-                                <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= paySlipData.empId %></td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 4px; border: 1px solid #8d8d8d;">Employee Designation</td>
-                                <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= emp.empDesignation %></td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 4px; border: 1px solid #8d8d8d;">Pay Period</td>
-                                <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= paySlipData.payPeriod %></td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 4px; border: 1px solid #8d8d8d;">Pay Date</td>
-                                <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= paySlipData.paymentDate %></td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 4px; border: 1px solid #8d8d8d;">Paid Days</td>
-                                <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= paySlipData.paidDays %></td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 4px; border: 1px solid #8d8d8d;">Loss of Pay Days</td>
-                                <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= paySlipData.lossOfPayDaysAndHour %></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+      <h2
+        style="
+          color: rgba(27, 138, 12, 0.966);
+          text-align: center;
+          margin-top: 5px;
+          font-size: 18px;
+        "
+      >
+        Monthly Pay Slip
+      </h2>
 
-                <div style="margin-top:0px;">
-                    <strong style="display: block; text-align: center;">Account Details:</strong>
-                    <table style=" border: 1px solid #8d8d8d; border-collapse: collapse; margin-top: 10px;width: 70%;text-align: center;font-size: 14px; margin-left: auto; margin-right: auto;">
-                        <tbody>
-                            <tr>
-                                <td style="padding: 4px; border: 1px solid #8d8d8d;">Account Number</td>
-                                <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= emp.accountNo %></td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 4px; border: 1px solid #8d8d8d;">Bank</td>
-                                <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= emp.bankName %></td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 4px; border: 1px solid #8d8d8d;">Branch</td>
-                                <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= emp.branch %></td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 4px; border: 1px solid #8d8d8d;">IFSC Code</td>
-                                <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= emp.ifscCode %></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            
+      <div
+        style="
+          text-align: center;
+          font-size: 14px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        "
+      >
+        <table
+          style="
+            border: 1px solid #8d8d8d;
+            border-collapse: collapse;
+            margin-left: auto;
+            margin-right: auto;
+            width: 70%;
+          "
+        >
+          <tbody>
+            <tr>
+              <td style="padding: 4px; width: 50%; border: 1px solid #8d8d8d">
+                Employee Name
+              </td>
+              <td style="padding: 4px; width: 50%; border: 1px solid #8d8d8d">
+                <%= emp.empName %>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">
+                Employee Id
+              </td>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">
+                <%= paySlipData.empId %>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">
+                Employee Designation
+              </td>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">
+                <%= emp.empDesignation %>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">
+                Pay Period
+              </td>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">
+                <%= paySlipData.payPeriod %>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">Pay Date</td>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">
+                <%= paySlipData.paymentDate %>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">Paid Days</td>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">
+                <%= paySlipData.paidDays %>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">
+                Loss of Pay Days
+              </td>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">
+                <%= paySlipData.lossOfPayDaysAndHour %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-            <div style="margin-top: 0px;font-size: 14px;">
-                <table style="width: 100%; border: 1px solid #8d8d8d; border-collapse: collapse; margin-top: 10px;">
-                    <thead>
-                        <tr style="background-color: #ccc; text-align: center;">
-                            <th style="width: 35%; border-right: none; padding: 10px;">Earning</th>
-                            <th style="width: 15%; border-left: none; padding: 10px;"></th>
-                            <th style="width: 35%; border-right: none; padding: 10px;">Reducing</th>
-                            <th style="width: 15%; border-left: none; padding: 10px;"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td style="padding: 4px; border: 1px solid #8d8d8d;">Basic</td>
-                            <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= paySlipData.basics %></td>
-                            <td style="padding: 4px; border: 1px solid #8d8d8d;">Income Tax</td>
-                            <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= paySlipData.incomeTax %></td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 4px; border: 1px solid #8d8d8d;">Performance and Special Allowances</td>
-                            <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= paySlipData.performanceAndSpecialAllowens %></td>
-                            <td style="padding: 4px; border: 1px solid #8d8d8d;">Loss</td>
-                            <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= paySlipData.loss %></td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 4px; border: 1px solid #8d8d8d;"><strong>Gross Earnings</strong></td>
-                            <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= paySlipData.crossEarning %></td>
-                            <td style="padding: 4px; border: 1px solid #8d8d8d;">PF</td>
-                            <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= paySlipData.pf %></td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 4px; border: 1px solid #8d8d8d;"></td>
-                            <td style="padding: 4px; border: 1px solid #8d8d8d;"></td>
-                            <td style="padding: 4px; border: 1px solid #8d8d8d;"><strong>Total Reduction</strong></td>
-                            <td style="padding: 4px; border: 1px solid #8d8d8d;"><%= paySlipData.totalReduction %></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+      <div style="margin-top: 0px">
+        <strong style="display: block; text-align: center"
+          >Account Details:</strong
+        >
+        <table
+          style="
+            border: 1px solid #8d8d8d;
+            border-collapse: collapse;
+            margin-top: 10px;
+            width: 70%;
+            text-align: center;
+            font-size: 14px;
+            margin-left: auto;
+            margin-right: auto;
+          "
+        >
+          <tbody>
+            <tr>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">
+                Account Number
+              </td>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">
+                <%= emp.accountNo %>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">Bank</td>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">
+                <%= emp.bankName %>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">Branch</td>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">
+                <%= emp.branch %>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">IFSC Code</td>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">
+                <%= emp.ifscCode %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-            <div style="margin-top: 0px;font-size: 14px;">
-                <table style="width: 100%; border: 1px solid #8d8d8d; border-collapse: collapse; margin-top: 10px;">
-                    <tbody>
-                        <tr>
-                            <td style="padding: 6px; width: 50%; border: 1px solid #8d8d8d;">Total Net Payable (Gross Earnings - Total Reduction)</td>
-                            <td style="padding: 6px; width: 50%; border: 1px solid #8d8d8d;"><%= paySlipData.totalAmount %></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+      <div style="margin-top: 0px; font-size: 14px">
+        <table
+          style="
+            width: 100%;
+            border: 1px solid #8d8d8d;
+            border-collapse: collapse;
+            margin-top: 10px;
+          "
+        >
+          <thead>
+            <tr style="background-color: #ccc; text-align: center">
+              <th style="width: 35%; border-right: none; padding: 10px">
+                Earning
+              </th>
+              <th style="width: 15%; border-left: none; padding: 10px"></th>
+              <th style="width: 35%; border-right: none; padding: 10px">
+                Reducing
+              </th>
+              <th style="width: 15%; border-left: none; padding: 10px"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">Basic</td>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">
+                <%= paySlipData.basics %>
+              </td>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">
+                Income Tax
+              </td>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">
+                <%= paySlipData.incomeTax %>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">
+                Performance and Special Allowances
+              </td>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">
+                <%= paySlipData.performanceAndSpecialAllowens %>
+              </td>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">Loss</td>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">
+                <%= paySlipData.loss %>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">
+                <strong>Gross Earnings</strong>
+              </td>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">
+                <%= paySlipData.crossEarning %>
+              </td>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">PF</td>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">
+                <%= paySlipData.pf %>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 4px; border: 1px solid #8d8d8d"></td>
+              <td style="padding: 4px; border: 1px solid #8d8d8d"></td>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">
+                <strong>Total Reduction</strong>
+              </td>
+              <td style="padding: 4px; border: 1px solid #8d8d8d">
+                <%= paySlipData.totalReduction %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-            <div style="margin-top: 10px; margin-bottom: 10px; text-align: right;">
-                
-                <p style=" display: inline-block;"><strong >HR Signature:</strong> ___________________</p>
-            </div>
-        
+      <div style="margin-top: 0px; font-size: 14px">
+        <table
+          style="
+            width: 100%;
+            border: 1px solid #8d8d8d;
+            border-collapse: collapse;
+            margin-top: 10px;
+          "
+        >
+          <tbody>
+            <tr>
+              <td style="padding: 6px; width: 50%; border: 1px solid #8d8d8d">
+                Total Net Payable (Gross Earnings - Total Reduction)
+              </td>
+              <td style="padding: 6px; width: 50%; border: 1px solid #8d8d8d">
+                <%= paySlipData.totalAmount %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="margin-top: 10px; margin-bottom: 10px; text-align: right">
+        <p style="display: inline-block">
+          <strong>HR Signature:</strong> ___________________
+        </p>
+      </div>
     </div>
-
-</body>
+  </body>
+</html>
