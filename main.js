@@ -28,7 +28,7 @@ app.use('/emp-doc', swaggerUi.serve, swaggerUi.setup(swaggerDoc))
 // app.use('/public', express.static(path.join(__dirname, 'public')));
 
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 12345;
 
 mongoose.connect(process.env.MONGO_URL)
 mongoose.connect(process.env.MONGO_URL)

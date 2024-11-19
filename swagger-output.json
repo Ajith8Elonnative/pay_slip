@@ -199,6 +199,9 @@
                 "salary": {
                   "example": "any"
                 },
+                "totalWorkigDays": {
+                  "example": "any"
+                },
                 "payPeriod": {
                   "example": "any"
                 },
@@ -240,9 +243,6 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
           "201": {
             "description": "Created"
           },

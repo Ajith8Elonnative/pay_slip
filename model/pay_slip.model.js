@@ -15,6 +15,10 @@ const schema = new mongoose.Schema({
         type:String,
         required:true
     },
+    totalWorkigDays:{
+        type:String,
+        required:true
+    },
     payPeriod: {
         type: String
     },

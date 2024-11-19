@@ -23,7 +23,7 @@ exports.getAll = async (req, res) => {
 
 exports.create = async (req, res) => {
     try {
-        const { empId,empName, salary, payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, basics, totalReduction, crossEarning, loss, pf, performanceAndSpecialAllowens, totalAmount } = req.body
+        const { empId,empName, salary, totalWorkigDays, payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, basics, totalReduction, crossEarning, loss, pf, performanceAndSpecialAllowens, totalAmount } = req.body
         const Loss = Math.round(lossOfPayDaysAndHour * salary / 22)
         const crossEarn = Number(performanceAndSpecialAllowens) + Number(salary)
         const InPf = Number(pf) + Number(incomeTax)
@@ -34,6 +34,7 @@ exports.create = async (req, res) => {
             empId,
             empName,
             salary,
+            totalWorkigDays,
             payPeriod,
             paymentDate,
             paidDays,
@@ -48,15 +49,10 @@ exports.create = async (req, res) => {
             totalAmount: calculatedTotalAmount,
         })
 
-        const search = await paySlip.findOne({empId, payPeriod}) 
-        if(!search){
-            await create.save()
-        }else{
-            res.json({
-               message:"This id already exsits" 
-            })
+        const pay = await paySlip.find({payPeriod:payPeriod, empId:empId})
+        if(pay.length === 0){
+          await create.save()
         }
-        
         const imagePath = path.join(__dirname, '../public/elonImage.png');
         const imageBuffer = fs.readFileSync(imagePath);
         const base64Image = `data:image/png;base64,${imageBuffer.toString('base64')}`;
@@ -73,8 +69,8 @@ exports.create = async (req, res) => {
             month:month,
             year:year
         })
-        const validId = await basefile.findOne({empId:empId}) 
-        if(!validId){
+        const validId = await basefile.find({empId:empId}) 
+        if(validId.length === 0){
             await pdfBase.save()
         }
         res.status(201).json({
@@ -153,6 +149,7 @@ exports.update = async (req, res) => {
                 empName,
                 salary,
                 payPeriod,
+                totalWorkigDays,
                 paymentDate,
                 paidDays,
                 lossOfPayDaysAndHour,
@@ -184,8 +181,8 @@ exports.update = async (req, res) => {
             month:month,
             year:year
         })
-        const validId = await basefile.findOne({empId:empId}) 
-        if(!validId){
+        const validId = await basefile.find({empId:empId, month:month, year:year}) 
+        if(validId.length === 0){
             await pdfBase.save()
         }
         res.status(201).json(update)
