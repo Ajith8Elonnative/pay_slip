@@ -136,60 +136,82 @@ exports.sendEmail = async (req, res) => {
 
 exports.update = async (req, res) => {
     try {
-        const { empId,empName, salary,totalWorkingDays, payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, basics, totalReduction, crossEarning, loss, pf, performanceAndSpecialAllowens, totalAmount } = req.body
-        const Loss = Math.round(lossOfPayDaysAndHour * salary / totalWorkingDays)
-        const crossEarn = Number(performanceAndSpecialAllowens) + Number(salary)
-        const InPf = Number(pf) + Number(incomeTax)
-        const InPfLoss = Number(pf) + Number(incomeTax) + Loss
-        const actualSalary = salary - (lossOfPayDaysAndHour * salary / totalWorkingDays) + (performanceAndSpecialAllowens - InPf);
+        const {
+            empId,
+            empName,
+            salary,
+            totalWorkingDays,
+            payPeriod,
+            paymentDate,
+            paidDays,
+            lossOfPayDaysAndHour,
+            incomeTax,
+            pf,
+            performanceAndSpecialAllowens,
+        } = req.body;
+
+        const Loss = Math.round((lossOfPayDaysAndHour * salary) / totalWorkingDays);
+        const crossEarn = Number(performanceAndSpecialAllowens) + Number(salary);
+        const InPf = Number(pf) + Number(incomeTax);
+        const InPfLoss = InPf + Loss;
+        const actualSalary = salary - (Loss || 0) + (performanceAndSpecialAllowens || 0) - InPf;
         const calculatedTotalAmount = Math.round(actualSalary);
-        const update = await paySlip.findByIdAndUpdate({ _id: req.params.id },
-            {
-                empId,
-                empName,
-                salary,
-                payPeriod,
-                totalWorkingDays,
-                paymentDate,
-                paidDays,
-                lossOfPayDaysAndHour,
-                basics: salary,
-                incomeTax,
-                loss: Loss,
-                pf,
-                crossEarning: crossEarn,
-                totalReduction: InPfLoss,
-                performanceAndSpecialAllowens,
-                totalAmount: calculatedTotalAmount,
-            },
-            {
-                new: true
-            }
-        )
+
+        const updatePayload = {
+            empId,
+            empName,
+            salary,
+            payPeriod,
+            totalWorkingDays,
+            paymentDate,
+            paidDays,
+            lossOfPayDaysAndHour,
+            basics: salary,
+            incomeTax,
+            loss: Loss,
+            pf,
+            crossEarning: crossEarn,
+            totalReduction: InPfLoss,
+            performanceAndSpecialAllowens,
+            totalAmount: calculatedTotalAmount,
+        };
+
+        const updateData = await paySlip.findOneAndUpdate(
+            { _id: req.params.id },
+            updatePayload,
+            { new: true }
+        );
+        
         const imagePath = path.join(__dirname, '../public/elonImage.png');
         const imageBuffer = fs.readFileSync(imagePath);
         const base64Image = `data:image/png;base64,${imageBuffer.toString('base64')}`;
         const empDetail = await empDetails.findOne({ empId: req.body.empId });
-        console.log("this is for test")
-        const html = await ejs.renderFile(path.join(__dirname, '../views/slip.ejs'), { paySlipData: update, emp: empDetail,  imageUrl: base64Image, });
-        const buffer = await generatePDF(html)
         
+        const htmlFile = await ejs.renderFile(path.join(__dirname, '../views/slip.ejs'), { paySlipData: updateData, emp: empDetail,  imageUrl: base64Image, });
+        
+        const buffer = await generatePDF(htmlFile)
         const base64Data = buffer.toString('base64');
-        
+        console.log("54", base64Data)
         const [day, month, year] =await paymentDate.split('/')
-        const pdfBase = await new basefile({
-            file:base64Data,
-            employeeId:empId,
-            month:month,
-            year:year
+        
+        const updated = await basefile.findOneAndUpdate(
+            { employeeId: empId, month: month, year: year }, // Search criteria
+            {
+                employeeId: empId,
+                month: month,
+                year: year,
+                file: base64Data
+            }, // Fields to update
+            {
+                new: true, // Return the updated document
+                // upsert: true // Create a new document if no match is found
+            }
+        );
+    
+        res.status(201).json({
+            message:"successfully update",
+            data:updateData
         })
-        const filter = {employeeId:empId, month:month, year:year}
-       // const result = await Product.replaceOne(filter, replacement, { upsert: true }); 
-        const replace = await basefile.replaceOne(filter, pdfBase, { upsert: true }) 
-       
-        //await pdfBase.save()
-       
-        res.status(201).json(update)
         
     } catch (error) {
         res.status(500).json({ message: error.message })

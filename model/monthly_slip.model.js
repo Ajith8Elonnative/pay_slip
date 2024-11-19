@@ -1,20 +1,18 @@
 const mongoose = require("mongoose");
 
-
 const schema = new mongoose.Schema({
-    employeeId:{
-        type:String
+    employeeId: {
+        type: String
     },
-    month:{
-        type:Number
+    month: {
+        type: Number
     },
-    year:{
-        type:Number
+    year: {
+        type: Number
     },
-    file:{
-        type:String
+    file: {
+        type: String
     }
-
 })
 
 const savepdf = new mongoose.model('monthly pay_slip', schema)

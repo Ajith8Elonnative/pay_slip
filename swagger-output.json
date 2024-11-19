@@ -316,25 +316,10 @@
                 "incomeTax": {
                   "example": "any"
                 },
-                "basics": {
-                  "example": "any"
-                },
-                "totalReduction": {
-                  "example": "any"
-                },
-                "crossEarning": {
-                  "example": "any"
-                },
-                "loss": {
-                  "example": "any"
-                },
                 "pf": {
                   "example": "any"
                 },
                 "performanceAndSpecialAllowens": {
-                  "example": "any"
-                },
-                "totalAmount": {
                   "example": "any"
                 }
               }
