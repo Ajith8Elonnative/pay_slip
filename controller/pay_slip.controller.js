@@ -23,8 +23,8 @@ exports.getAll = async (req, res) => {
 
 exports.create = async (req, res) => {
     try {
-        const { empId,empName, salary, totalWorkigDays, payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, basics, totalReduction, crossEarning, loss, pf, performanceAndSpecialAllowens, totalAmount } = req.body
-        const Loss = Math.round(lossOfPayDaysAndHour * salary / totalWorkigDays)
+        const { empId,empName, salary, totalWorkingDays, payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, basics, totalReduction, crossEarning, loss, pf, performanceAndSpecialAllowens, totalAmount } = req.body
+        const Loss = Math.round(lossOfPayDaysAndHour * salary / totalWorkingDays)
         const crossEarn = Number(performanceAndSpecialAllowens) + Number(salary)
         const InPf = Number(pf) + Number(incomeTax)
         const InPfLoss = Number(pf) + Number(incomeTax) + Loss
@@ -34,7 +34,7 @@ exports.create = async (req, res) => {
             empId,
             empName,
             salary,
-            totalWorkigDays,
+            totalWorkingDays,
             payPeriod,
             paymentDate,
             paidDays,
@@ -136,8 +136,8 @@ exports.sendEmail = async (req, res) => {
 
 exports.update = async (req, res) => {
     try {
-        const { empId,empName, salary, payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, basics, totalReduction, crossEarning, loss, pf, performanceAndSpecialAllowens, totalAmount } = req.body
-        const Loss = Math.round(lossOfPayDaysAndHour * salary / totalWorkigDays)
+        const { empId,empName, salary,totalWorkingDays, payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, basics, totalReduction, crossEarning, loss, pf, performanceAndSpecialAllowens, totalAmount } = req.body
+        const Loss = Math.round(lossOfPayDaysAndHour * salary / totalWorkingDays)
         const crossEarn = Number(performanceAndSpecialAllowens) + Number(salary)
         const InPf = Number(pf) + Number(incomeTax)
         const InPfLoss = Number(pf) + Number(incomeTax) + Loss
@@ -149,7 +149,7 @@ exports.update = async (req, res) => {
                 empName,
                 salary,
                 payPeriod,
-                totalWorkigDays,
+                totalWorkingDays,
                 paymentDate,
                 paidDays,
                 lossOfPayDaysAndHour,

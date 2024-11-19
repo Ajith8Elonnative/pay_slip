@@ -15,7 +15,7 @@ const schema = new mongoose.Schema({
         type:String,
         required:true
     },
-    totalWorkigDays:{
+    totalWorkingDays:{
         type:String,
         required:true
     },
