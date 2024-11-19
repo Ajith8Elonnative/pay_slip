@@ -28,7 +28,7 @@ exports.create = async (req, res) => {
         const crossEarn = Number(performanceAndSpecialAllowens) + Number(salary)
         const InPf = Number(pf) + Number(incomeTax)
         const InPfLoss = Number(pf) + Number(incomeTax) + Loss
-        const actualSalary = salary - (lossOfPayDaysAndHour * salary / 22) + (performanceAndSpecialAllowens - InPf);
+        const actualSalary = salary - (lossOfPayDaysAndHour * salary / totalWorkingDays) + (performanceAndSpecialAllowens - InPf);
         const calculatedTotalAmount = Math.round(actualSalary);
         const create = await new paySlip({
             empId,
@@ -69,7 +69,7 @@ exports.create = async (req, res) => {
             month:month,
             year:year
         })
-        const validId = await basefile.find({empId:empId}) 
+        const validId = await basefile.find({employeeId:empId}) 
         if(validId.length === 0){
             await pdfBase.save()
         }
@@ -141,7 +141,7 @@ exports.update = async (req, res) => {
         const crossEarn = Number(performanceAndSpecialAllowens) + Number(salary)
         const InPf = Number(pf) + Number(incomeTax)
         const InPfLoss = Number(pf) + Number(incomeTax) + Loss
-        const actualSalary = salary - (lossOfPayDaysAndHour * salary / 22) + (performanceAndSpecialAllowens - InPf);
+        const actualSalary = salary - (lossOfPayDaysAndHour * salary / totalWorkingDays) + (performanceAndSpecialAllowens - InPf);
         const calculatedTotalAmount = Math.round(actualSalary);
         const update = await paySlip.findByIdAndUpdate({ _id: req.params.id },
             {
@@ -170,10 +170,12 @@ exports.update = async (req, res) => {
         const imageBuffer = fs.readFileSync(imagePath);
         const base64Image = `data:image/png;base64,${imageBuffer.toString('base64')}`;
         const empDetail = await empDetails.findOne({ empId: req.body.empId });
-        const html = await ejs.renderFile(path.join(__dirname, '../views/slip.ejs'), { paySlipData: create, emp: empDetail,  imageUrl: base64Image, });
+        console.log("this is for test")
+        const html = await ejs.renderFile(path.join(__dirname, '../views/slip.ejs'), { paySlipData: update, emp: empDetail,  imageUrl: base64Image, });
         const buffer = await generatePDF(html)
+        
         const base64Data = buffer.toString('base64');
-
+        
         const [day, month, year] =await paymentDate.split('/')
         const pdfBase = await new basefile({
             file:base64Data,
@@ -181,10 +183,14 @@ exports.update = async (req, res) => {
             month:month,
             year:year
         })
-        await basefile.findByIdAndDelete({empId:empId, month:month, year:year}) 
-        await pdfBase.save()
+        const filter = {employeeId:empId, month:month, year:year}
+       // const result = await Product.replaceOne(filter, replacement, { upsert: true }); 
+        const replace = await basefile.replaceOne(filter, pdfBase, { upsert: true }) 
+       
+        //await pdfBase.save()
        
         res.status(201).json(update)
+        
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
