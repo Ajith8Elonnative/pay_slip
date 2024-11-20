@@ -19,11 +19,11 @@ const schema = new mongoose.Schema({
 
   newPassword:{
     type:String,
-    required: true
+   
   },
   confirmPassword:{
     type:String,
-    required: true
+   
   }
 })
 const reset = new mongoose.model('reset data', schema)

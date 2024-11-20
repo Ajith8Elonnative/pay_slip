@@ -14,7 +14,8 @@ const schema = new mongoose.Schema({
     password:{
         type:String,
         required:true
-    }
+    },
+    
 })
 
 const result = new mongoose.model("login data",schema)
