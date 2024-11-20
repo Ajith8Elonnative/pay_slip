@@ -23,10 +23,10 @@ exports.getAll = async (req, res) => {
 exports.getByMonth = async (req, res) => {
     try {
         const { paymentDate } = req.params
-        const getMonthData = await paySlip.find({ paymentDate: paymentDate })
-        if(!getMonthData){
-            return res.status(200).json({message:"page not found "})
-        }
+        const getMonthData = await paySlip.find({ paymentDate:paymentDate })
+       if(!getMonthData){
+        res.status(400).json({message:"[page not found"})
+       }
         res.status(200).json({
             message:"get data successfully...",
             data:getMonthData
