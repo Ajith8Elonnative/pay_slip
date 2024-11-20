@@ -30,11 +30,11 @@ exports.loginUser =async (req,res) =>{
         const {userName,password} = req.body
         const existUser =await User.findOne({userName})
         if(!existUser){
-            res.status(400).json({message:"invalid user name username...."})
+            res.status(400).json({message:"invalid username"})
         }
         const validPassword =await bcrypt.compare(password,existUser.password)
         if(!validPassword){
-            res.status(400).json({message:"invalid password..."})
+            res.status(400).json({message:"invalid password"})
         }
         res.json({message:"login successfully"})
     } catch (error) {
