@@ -53,7 +53,7 @@ exports.verifyOtp = async(req, res) =>{
         }
     
         // Find the OTP entry in the database
-        const otpEntry = await Otp.findOne({ email });
+        const otpEntry = await Otp.findOne({ email:email });
     
         if (!otpEntry) {
           return res.status(404).json({ message: 'OTP not found or expired' });
@@ -70,7 +70,7 @@ exports.verifyOtp = async(req, res) =>{
       }
   
       // Find the user in the database
-      const userDb = await user.findOne({ email });
+      const userDb = await user.findOne({ email:email });
       if (!userDb) {
         return res.status(404).json({ message: 'User not found' });
       }
