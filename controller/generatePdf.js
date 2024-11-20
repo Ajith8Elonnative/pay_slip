@@ -1,7 +1,8 @@
 const pdf = require('html-pdf');
 const generatePdf = (html) => {
     return new Promise((resolve, reject) => {
-        const options = { format: 'A4',
+        const options = {
+            format: 'A4',
             orientation: 'portrait',
             border: {
                 top: '0.01in',
@@ -11,9 +12,9 @@ const generatePdf = (html) => {
             },
             type: 'pdf',
             quality: '100',
-            timeout: 60000 
-         };
-        
+            timeout: 60000
+        };
+
         // Generate the PDF using html-pdf
         pdf.create(html, options).toBuffer((err, buffer) => {
             if (err) {

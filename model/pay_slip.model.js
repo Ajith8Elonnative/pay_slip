@@ -1,23 +1,23 @@
 const mongoose = require("mongoose");
 
 const schema = new mongoose.Schema({
-    base64:{
-        type:String
+    base64: {
+        type: String
     },
-    empId:{
-        type:String,
-        required:true
+    empId: {
+        type: String,
+        required: true
     },
-    empName:{
-        type:String,
+    empName: {
+        type: String,
     },
-    salary:{
-        type:String,
-        required:true
+    salary: {
+        type: String,
+        required: true
     },
-    totalWorkingDays:{
-        type:String,
-        required:true
+    totalWorkingDays: {
+        type: String,
+        required: true
     },
     payPeriod: {
         type: String
@@ -31,8 +31,8 @@ const schema = new mongoose.Schema({
     lossOfPayDaysAndHour: {
         type: String
     },
-    basics:{
-        type:String
+    basics: {
+        type: String
     },
     incomeTax: {
         type: String
@@ -43,11 +43,11 @@ const schema = new mongoose.Schema({
     pf: {
         type: String
     },
-    totalReduction:{
-        type:String
+    totalReduction: {
+        type: String
     },
-    crossEarning:{
-        type:String
+    crossEarning: {
+        type: String
     },
     performanceAndSpecialAllowens: {
         type: String

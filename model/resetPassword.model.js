@@ -13,17 +13,17 @@ const schema = new mongoose.Schema({
   },
   createOtp: {
     type: String,
-  
+
   },
   createdAt: { type: Date, default: Date.now, expires: 300 },
 
-  newPassword:{
-    type:String,
-   
+  newPassword: {
+    type: String,
+
   },
-  confirmPassword:{
-    type:String,
-   
+  confirmPassword: {
+    type: String,
+
   }
 })
 const reset = new mongoose.model('reset data', schema)

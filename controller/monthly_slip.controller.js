@@ -7,7 +7,7 @@ const slip = require('../model/monthly_slip.model.js')
 //     const buffer = await generatePDF(htmlContent)
 //     const base64Data = buffer.toString('base64');
 //     // const base64Encoded = Buffer.from(htmlContent).toString('base64');
-   
+
 //     const {employeeId, month, year} = req.body
 //     const check = await slip.findOne({
 //         $and: [
@@ -27,26 +27,26 @@ const slip = require('../model/monthly_slip.model.js')
 //         })
 //         const result = await paySlip.save()
 //         res.json(result)
-    
+
 //    } catch (error) {
 //     console.error('Error storing payslip:', error);
 //    }
 // }
 
 
-exports.getSlip = async(req, res) =>{
+exports.getSlip = async (req, res) => {
     try {
-        const {employeeId, month, year} = req.body
+        const { employeeId, month, year } = req.body
         const paySlipRetrieve = await slip.findOne({ employeeId, month, year });
 
         if (!paySlipRetrieve) {
-           res.status(200).json({
-            message:"data not found"
-           })
+            res.status(200).json({
+                message: "data not found"
+            })
         }
-        
+
         res.json(paySlipRetrieve.file)
     } catch (error) {
-        res.status(500).json({message:error.message})
+        res.status(500).json({ message: error.message })
     }
 }

@@ -12,32 +12,32 @@ exports.getall = async (req, res) => {
 
 exports.signupUser = async (req, res) => {
     try {
-        const {userName, password } = req.body;
+        const { userName, password } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
         const post = new User({
             userName,
-            password:hashedPassword
+            password: hashedPassword
         })
-        const saveAuth =await post.save()
+        const saveAuth = await post.save()
         res.status(201).json(saveAuth)
     } catch (error) {
         res.status(400).json({ message: error.message })
     }
 }
 
-exports.loginUser =async (req,res) =>{
+exports.loginUser = async (req, res) => {
     try {
-        const {userName,password} = req.body
-        const existUser =await User.findOne({userName})
-        if(!existUser){
-            res.status(400).json({message:"invalid username"})
+        const { userName, password } = req.body
+        const existUser = await User.findOne({ userName })
+        if (!existUser) {
+            res.status(400).json({ message: "invalid username" })
         }
-        const validPassword =await bcrypt.compare(password,existUser.password)
-        if(!validPassword){
-            res.status(400).json({message:"invalid password"})
+        const validPassword = await bcrypt.compare(password, existUser.password)
+        if (!validPassword) {
+            res.status(400).json({ message: "invalid password" })
         }
-        res.json({message:"login successfully"})
+        res.json({ message: "login successfully" })
     } catch (error) {
-        res.status(500).json({message:error.message})
+        res.status(500).json({ message: error.message })
     }
 }

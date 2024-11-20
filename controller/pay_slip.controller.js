@@ -23,7 +23,7 @@ exports.getAll = async (req, res) => {
 
 exports.create = async (req, res) => {
     try {
-        const { empId,empName, salary, totalWorkingDays, payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, basics, totalReduction, crossEarning, loss, pf, performanceAndSpecialAllowens, totalAmount } = req.body
+        const { empId, empName, salary, totalWorkingDays, payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, basics, totalReduction, crossEarning, loss, pf, performanceAndSpecialAllowens, totalAmount } = req.body
         const Loss = Math.round(lossOfPayDaysAndHour * salary / totalWorkingDays)
         const crossEarn = Number(performanceAndSpecialAllowens) + Number(salary)
         const InPf = Number(pf) + Number(incomeTax)
@@ -49,28 +49,28 @@ exports.create = async (req, res) => {
             totalAmount: calculatedTotalAmount,
         })
 
-        const pay = await paySlip.find({payPeriod:payPeriod, empId:empId})
-        if(pay.length === 0){
-          await create.save()
+        const pay = await paySlip.find({ payPeriod: payPeriod, empId: empId })
+        if (pay.length === 0) {
+            await create.save()
         }
         const imagePath = path.join(__dirname, '../public/elonImage.png');
         const imageBuffer = fs.readFileSync(imagePath);
         const base64Image = `data:image/png;base64,${imageBuffer.toString('base64')}`;
 
         const empDetail = await empDetails.findOne({ empId: req.body.empId });
-       
-        const html = await ejs.renderFile(path.join(__dirname, '../views/slip.ejs'), { paySlipData: create, emp: empDetail,  imageUrl: base64Image, });
+
+        const html = await ejs.renderFile(path.join(__dirname, '../views/slip.ejs'), { paySlipData: create, emp: empDetail, imageUrl: base64Image, });
         const buffer = await generatePDF(html)
         const base64Data = buffer.toString('base64');
-        const [day, month, year] =await paymentDate.split('/')
+        const [day, month, year] = await paymentDate.split('/')
         const pdfBase = await new basefile({
-            file:base64Data,
-            employeeId:empId,
-            month:month,
-            year:year
+            file: base64Data,
+            employeeId: empId,
+            month: month,
+            year: year
         })
-        const validId = await basefile.find({employeeId:empId}) 
-        if(validId.length === 0){
+        const validId = await basefile.find({ employeeId: empId })
+        if (validId.length === 0) {
             await pdfBase.save()
         }
         res.status(201).json({
@@ -103,7 +103,7 @@ exports.sendEmail = async (req, res) => {
 
             ],
             subject: "hi this is test process",
-            text: 'This is a test email sent using Nodemailer.', 
+            text: 'This is a test email sent using Nodemailer.',
             html: '<h1>Hello!</h1><p>This is a test email sent using <b>Nodemailer</b>.</p>',
             attachments: [
                 {
@@ -114,9 +114,9 @@ exports.sendEmail = async (req, res) => {
             ],
         };
 
-        transporter.sendMail(mailOptions,(error,info)=>{
-            if(error){
-                return console.log("error occur",error)
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                return console.log("error occur", error)
             }
             console.log("mail send succcessfully")
         })
@@ -129,7 +129,7 @@ exports.sendEmail = async (req, res) => {
         });
         res.status(200).json("mail successfully")
     } catch (error) {
-        res.status(500).json({message:error.message})
+        res.status(500).json({ message: error.message })
     }
 }
 
@@ -181,19 +181,19 @@ exports.update = async (req, res) => {
             updatePayload,
             { new: true }
         );
-        
+
         const imagePath = path.join(__dirname, '../public/elonImage.png');
         const imageBuffer = fs.readFileSync(imagePath);
         const base64Image = `data:image/png;base64,${imageBuffer.toString('base64')}`;
         const empDetail = await empDetails.findOne({ empId: req.body.empId });
-        
-        const htmlFile = await ejs.renderFile(path.join(__dirname, '../views/slip.ejs'), { paySlipData: updateData, emp: empDetail,  imageUrl: base64Image, });
-        
+
+        const htmlFile = await ejs.renderFile(path.join(__dirname, '../views/slip.ejs'), { paySlipData: updateData, emp: empDetail, imageUrl: base64Image, });
+
         const buffer = await generatePDF(htmlFile)
         const base64Data = buffer.toString('base64');
         console.log("54", base64Data)
-        const [day, month, year] =await paymentDate.split('/')
-        
+        const [day, month, year] = await paymentDate.split('/')
+
         const updated = await basefile.findOneAndUpdate(
             { employeeId: empId, month: month, year: year }, // Search criteria
             {
@@ -207,12 +207,12 @@ exports.update = async (req, res) => {
                 // upsert: true // Create a new document if no match is found
             }
         );
-    
+
         res.status(201).json({
-            message:"successfully update",
-            data:updateData
+            message: "successfully update",
+            data: updateData
         })
-        
+
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
