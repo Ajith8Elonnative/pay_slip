@@ -84,9 +84,6 @@ exports.verifyOtp = async(req, res) =>{
     
         // OTP is valid, delete it from the database
         await Otp.deleteOne({ email });
-
-
-    
         res.status(200).json({ message: 'reset password successfully.....' });
       } catch (error) {
         console.error('Error verifying OTP:', error.message);
