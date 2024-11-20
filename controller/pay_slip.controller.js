@@ -20,6 +20,19 @@ exports.getAll = async (req, res) => {
     }
 }
 
+exports.getByMonth = async (req, res) => {
+    try {
+        const { paymentDate } = req.body
+        const getMonthData = await paySlip.find({ paymentDate: paymentDate })
+        console.log(getMonthData)
+        res.status(200).json({
+            message:"get data successfully...",
+            data:getMonthData
+        })
+    } catch (error) {
+        res.status(500).json({message:error.message})
+    }
+}
 
 exports.create = async (req, res) => {
     try {

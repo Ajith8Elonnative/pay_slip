@@ -180,6 +180,19 @@
         }
       }
     },
+    "/Pay_slip_calculate/getByMonth": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/Pay_slip_calculate/create": {
       "post": {
         "description": "",

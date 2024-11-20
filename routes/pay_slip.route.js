@@ -4,6 +4,8 @@ const route = express.Router()
 
 route.get('/getAll', usercontrol.getAll)
 
+route.get('/getByMonth', usercontrol.getByMonth)
+
 route.post('/create', usercontrol.create)
 
 route.post('/create/email/:email', usercontrol.sendEmail)
