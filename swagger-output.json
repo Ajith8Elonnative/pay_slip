@@ -180,9 +180,17 @@
         }
       }
     },
-    "/Pay_slip_calculate/getByMonth": {
+    "/Pay_slip_calculate/getByMonth/{}": {
       "get": {
         "description": "",
+        "parameters": [
+          {
+            "name": "",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
