@@ -1,5 +1,5 @@
 const Otp = require('../model/resetPassword.model.js')
-const user = require('../model/login.model.js')
+const User = require('../model/login.model.js')
 const nodemailer = require('nodemailer')
 const bcrypt = require('bcrypt')
 
@@ -68,9 +68,9 @@ exports.verifyOtp = async(req, res) =>{
     if (newPassword !== confirmPassword) {
         return res.status(400).json({ message: 'Passwords do not match' });
       }
-  
+      console.log("test ........................")
       // Find the user in the database
-      const userDb = await user.findOne({ email });
+      const userDb = await User.findOne({ userName:req.body.email });
       if (!userDb) {
         return res.status(404).json({ message: 'User not found' });
       }
