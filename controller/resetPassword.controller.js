@@ -70,7 +70,7 @@ exports.verifyOtp = async(req, res) =>{
       }
   
       // Find the user in the database
-      const userDb = await user.findOne({ email:email });
+      const userDb = await user.findOne({ userName:email });
       if (!userDb) {
         return res.status(404).json({ message: 'User not found' });
       }
