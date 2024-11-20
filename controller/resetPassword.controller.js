@@ -7,11 +7,11 @@ exports.sentOtp = async(req, res) =>{
     try {
         const createOtp = Math.floor(100000+(Math.random()*900000))
 
-        console.log(createOtp)
+        
         const otpEntry = await new Otp({ email: req.params.email, createOtp });
-        console.log("test")
+        
 
-        console.log(otpEntry)
+       
         await otpEntry.save();
         
         const transporter = nodemailer.createTransport({
@@ -53,7 +53,7 @@ exports.verifyOtp = async(req, res) =>{
         }
     
         // Find the OTP entry in the database
-        const otpEntry = await Otp.findOne({ email:email });
+        const otpEntry = await Otp.findOne({ email });
     
         if (!otpEntry) {
           return res.status(404).json({ message: 'OTP not found or expired' });
@@ -70,7 +70,7 @@ exports.verifyOtp = async(req, res) =>{
       }
   
       // Find the user in the database
-      const userDb = await user.findOne({ userName:email });
+      const userDb = await user.findOne({ email });
       if (!userDb) {
         return res.status(404).json({ message: 'User not found' });
       }
