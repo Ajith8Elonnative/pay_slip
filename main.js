@@ -10,6 +10,7 @@ const empRoutes = require('./routes/emp.routes.js')
 const calRoutes = require('./routes/pay_slip.route.js')
 const saveRoutes = require('./routes/monthly_slip.route.js')
 const loginRoutes = require('./routes/login.routes.js')
+const resetPasswordRoutes = require('./routes/resetPassword.routes.js')
 const app = express()
 
 
@@ -40,6 +41,7 @@ app.use('/Pay_slip_employee', empRoutes)
 app.use('/Pay_slip_calculate', calRoutes)
 app.use('/pay_slip_savePdf', saveRoutes)
 app.use('/pay_slip_login', loginRoutes)
+app.use('/pay_slip_resetPassword', resetPasswordRoutes )
 
 app.listen(PORT, () => {
     console.log("servers is running on :", PORT)

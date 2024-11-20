@@ -445,6 +445,26 @@
           }
         }
       }
+    },
+    "/pay_slip_resetPassword/sendOtp": {
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/pay_slip_resetPassword/verifyOtp": {
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
     }
   }
 }
