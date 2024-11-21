@@ -1,5 +1,5 @@
 const express = require('express')
-const usercontrol = require('../controller/pay_slip.controller.js')
+const usercontrol = require('../pay_slip controller/pay_slip.controller.js')
 const route = express.Router()
 
 route.get('/getAll', usercontrol.getAll)

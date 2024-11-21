@@ -1,5 +1,5 @@
 const express = require('express')
-const usercontroler = require("../controller/login.controller.js")
+const usercontroler = require("../authendication controller/login.controller.js")
 const routes = express.Router()
 
 routes.get('/getAll', usercontroler.getall)
