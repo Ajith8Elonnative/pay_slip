@@ -22,11 +22,8 @@
       "get": {
         "description": "",
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -35,11 +32,8 @@
       "get": {
         "description": "",
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -47,47 +41,9 @@
     "/Pay_slip_employee/create": {
       "post": {
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "empId": {
-                  "example": "any"
-                },
-                "empName": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "empDesignation": {
-                  "example": "any"
-                },
-                "accountNo": {
-                  "example": "any"
-                },
-                "bankName": {
-                  "example": "any"
-                },
-                "branch": {
-                  "example": "any"
-                },
-                "ifscCode": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
         "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -101,47 +57,11 @@
             "in": "path",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "empId": {
-                  "example": "any"
-                },
-                "empName": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "empDesignation": {
-                  "example": "any"
-                },
-                "accountNo": {
-                  "example": "any"
-                },
-                "bankName": {
-                  "example": "any"
-                },
-                "branch": {
-                  "example": "any"
-                },
-                "ifscCode": {
-                  "example": "any"
-                }
-              }
-            }
           }
         ],
         "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -158,11 +78,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -171,11 +88,8 @@
       "get": {
         "description": "",
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -192,14 +106,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -207,71 +115,9 @@
     "/Pay_slip_calculate/create": {
       "post": {
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "empId": {
-                  "example": "any"
-                },
-                "empName": {
-                  "example": "any"
-                },
-                "salary": {
-                  "example": "any"
-                },
-                "totalWorkingDays": {
-                  "example": "any"
-                },
-                "payPeriod": {
-                  "example": "any"
-                },
-                "paymentDate": {
-                  "example": "any"
-                },
-                "paidDays": {
-                  "example": "any"
-                },
-                "lossOfPayDaysAndHour": {
-                  "example": "any"
-                },
-                "incomeTax": {
-                  "example": "any"
-                },
-                "basics": {
-                  "example": "any"
-                },
-                "totalReduction": {
-                  "example": "any"
-                },
-                "crossEarning": {
-                  "example": "any"
-                },
-                "loss": {
-                  "example": "any"
-                },
-                "pf": {
-                  "example": "any"
-                },
-                "performanceAndSpecialAllowens": {
-                  "example": "any"
-                },
-                "totalAmount": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
         "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -288,11 +134,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -306,56 +149,11 @@
             "in": "path",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "empId": {
-                  "example": "any"
-                },
-                "empName": {
-                  "example": "any"
-                },
-                "salary": {
-                  "example": "any"
-                },
-                "totalWorkingDays": {
-                  "example": "any"
-                },
-                "payPeriod": {
-                  "example": "any"
-                },
-                "paymentDate": {
-                  "example": "any"
-                },
-                "paidDays": {
-                  "example": "any"
-                },
-                "lossOfPayDaysAndHour": {
-                  "example": "any"
-                },
-                "incomeTax": {
-                  "example": "any"
-                },
-                "pf": {
-                  "example": "any"
-                },
-                "performanceAndSpecialAllowens": {
-                  "example": "any"
-                }
-              }
-            }
           }
         ],
         "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -372,11 +170,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -385,11 +180,8 @@
       "get": {
         "description": "",
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -398,11 +190,8 @@
       "get": {
         "description": "",
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -410,29 +199,9 @@
     "/pay_slip_login/signup": {
       "post": {
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "userName": {
-                  "example": "any"
-                },
-                "password": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
         "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -440,32 +209,9 @@
     "/pay_slip_login/login": {
       "post": {
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "userName": {
-                  "example": "any"
-                },
-                "password": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -482,11 +228,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -494,41 +237,9 @@
     "/pay_slip_resetPassword/verifyOtp": {
       "post": {
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "example": "any"
-                },
-                "createOtp": {
-                  "example": "any"
-                },
-                "newPassword": {
-                  "example": "any"
-                },
-                "confirmPassword": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       }
