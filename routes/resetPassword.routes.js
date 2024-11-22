@@ -6,6 +6,6 @@ routes.post('/sendOtp/:email', usercontrol.sentOtp)
 
 routes.post('/verifyOtp', usercontrol.verifyOtp)
 
-routes.post('/fogetPassword', usercontrol.fogetPassword)
+routes.post('/fogetPassword/:email', usercontrol.fogetPassword)
 
 module.exports = routes

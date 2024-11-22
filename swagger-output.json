@@ -635,9 +635,17 @@
         }
       }
     },
-    "/pay_slip_resetPassword/fogetPassword": {
+    "/pay_slip_resetPassword/fogetPassword/{email}": {
       "post": {
         "description": "",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
