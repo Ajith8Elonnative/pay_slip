@@ -1,5 +1,6 @@
 const paySlip = require('../model/pay_slip.model.js')
 const empDetails = require('../model/emp.model.js')
+const base64toPdf = require('base64topdf')
 const ejs = require('ejs');
 const path = require('path');
 const nodemailer = require('nodemailer')
@@ -8,6 +9,7 @@ const fs = require('fs');
 const generatePDF = require('../controller/generatePdf.js');
 const { info } = require('console');
 const basefile = require('../model/monthly_slip.model.js')
+const getEmail = require('../model/emp.model.js')
 
 
 
@@ -23,16 +25,16 @@ exports.getAll = async (req, res) => {
 exports.getByMonth = async (req, res) => {
     try {
         const { paymentDate } = req.params
-        const getMonthData = await paySlip.find({ paymentDate:paymentDate })
-       if(!getMonthData){
-        res.status(400).json({message:"[page not found"})
-       }
+        const getMonthData = await paySlip.find({ paymentDate: paymentDate })
+        if (!getMonthData) {
+            res.status(400).json({ message: "[page not found" })
+        }
         res.status(200).json({
-            message:"get data successfully...",
-            data:getMonthData
+            message: "get data successfully...",
+            data: getMonthData
         })
     } catch (error) {
-        res.status(500).json({message:error.message})
+        res.status(500).json({ message: error.message })
     }
 }
 
@@ -102,7 +104,25 @@ exports.create = async (req, res) => {
 
 exports.sendEmail = async (req, res) => {
     try {
-        const pdfBuffer = fs.readFileSync('./output.pdf');
+        // const empIds = Array.isArray(req.body.data) ? req.body.data : [req.body.data];
+        // const emails = await Promise.all(
+        //     empIds.map(async ({ empId }) => {
+        //         const searchEmail = await getEmail.find({ empId })
+        //         const getFile = await basefile.find({empId})
+
+        //         return searchEmail.length > 0 ? searchEmail[0].email : null
+                
+        //     })
+        // )
+        // const findEmails = emails
+        
+        // const base64 = await basefile.find()
+        const {email} = req.params
+        const {employeeId} = req.body
+        const base64 = await basefile.find({employeeId})
+        const getbase64 = base64[0].file
+        const base64String = "data:application/pdf;base64"+getbase64;
+        base64toPdf.base64Decode(base64String,'pay_slip.pdf')
 
         const transporter = nodemailer.createTransport({
             service: "gmail",
@@ -114,19 +134,15 @@ exports.sendEmail = async (req, res) => {
 
         const mailOptions = {
             from: process.env.email_user,
-            to: [req.params.email,
-
-            ],
+            to: req.params.email,
             subject: "hi this is test process",
             text: 'This is a test email sent using Nodemailer.',
             html: '<h1>Hello!</h1><p>This is a test email sent using <b>Nodemailer</b>.</p>',
             attachments: [
-                {
-                    filename: 'output.pdf', // File name to be shown in email
-                    content: pdfBuffer, // File content
-                    contentType: 'application/pdf', // MIME type of the attachment
-                },
-            ],
+        {
+            filename: 'pay_slip.pdf',                                         
+            contentType: 'application/pdf'
+        }]
         };
 
         transporter.sendMail(mailOptions, (error, info) => {
@@ -135,7 +151,7 @@ exports.sendEmail = async (req, res) => {
             }
             console.log("mail send succcessfully")
         })
-        await fs.unlink('./output.pdf', (err) => {
+        await fs.unlink('./pay_slip.pdf', (err) => {
             if (err) {
                 console.error('Error deleting file:', err);
             } else {
