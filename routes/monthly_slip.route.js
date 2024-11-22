@@ -1,5 +1,5 @@
 const express = require('express');
-const usercontrol = require('../pay_slip controller/monthly_slip.controller.js')
+const usercontrol = require('../controller/monthly_slip.controller.js')
 const route = express.Router()
 
 // route.post('/store_slip', usercontrol.create)

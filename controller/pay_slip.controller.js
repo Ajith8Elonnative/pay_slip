@@ -5,7 +5,7 @@ const path = require('path');
 const nodemailer = require('nodemailer')
 require('dotenv').config()
 const fs = require('fs');
-const generatePDF = require('../employee controller/generatePdf.js');
+const generatePDF = require('../controller/generatePdf.js');
 const { info } = require('console');
 const basefile = require('../model/monthly_slip.model.js')
 

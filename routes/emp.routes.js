@@ -1,5 +1,5 @@
 const express = require('express')
-const usercontrol = require('../employee controller/emp.controller.js')
+const usercontrol = require('../controller/emp.controller.js')
 const route = express.Router()
 route.get('/getAll', usercontrol.getAll)
 
