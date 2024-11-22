@@ -6,12 +6,7 @@ const bcrypt = require('bcrypt')
 exports.sentOtp = async(req, res) =>{
     try {
         const createOtp = Math.floor(100000+(Math.random()*900000))
-
-        
         const otpEntry = await new Otp({ email: req.params.email, createOtp });
-        
-
-       
         await otpEntry.save();
         
         const transporter = nodemailer.createTransport({
@@ -90,3 +85,38 @@ exports.verifyOtp = async(req, res) =>{
         res.status(500).json({ message: 'Internal Server Error' });
       }
     };
+
+exports.fogetPassword = async(req, res) =>{
+  try {
+    const createOtp = Math.floor(100000+(Math.random()*900000))
+    const otpEntry = await new Otp({ email: req.params.email, createOtp });
+    await otpEntry.save();
+    
+    const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+            user: process.env.email_user,
+            pass: process.env.email_password
+        },
+    });
+
+    const mailOptions = {
+        from: process.env.email_user,
+        to: [req.params.email,
+
+        ],
+        subject: "hi this is test process",
+        text: 'This is a test for otp.', 
+        html: `<p>verification code is <b>${createOtp}</b> </p>`
+    }
+
+    transporter.sendMail(mailOptions,(error,info)=>{
+        if(error){
+            return console.log("error occur",error)
+        }
+    })
+    res.status(200).json({message:"send otp successfully"})
+} catch (error) {
+    res.status(500).json({message:error.message})
+}
+}

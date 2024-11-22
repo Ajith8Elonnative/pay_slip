@@ -121,6 +121,7 @@ exports.sendEmail = async (req, res) => {
         const {employeeId} = req.body
         const base64 = await basefile.find({employeeId})
         const getbase64 = base64[0].file
+        console.log(getbase64)
         const base64String = "data:application/pdf;base64"+getbase64;
         base64toPdf.base64Decode(base64String,'pay_slip.pdf')
 

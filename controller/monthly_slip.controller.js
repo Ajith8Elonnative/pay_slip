@@ -1,4 +1,7 @@
 const slip = require('../model/monthly_slip.model.js')
+const path = require('path')
+const fs = require('fs')
+const generatePDF = require('./generatePdf.js')
 
 exports.create = async(req, res) =>{
    try {
