@@ -248,9 +248,6 @@
             "schema": {
               "type": "object",
               "properties": {
-                "payPeriod": {
-                  "example": "any"
-                },
                 "empId": {
                   "example": "any"
                 },
@@ -261,6 +258,9 @@
                   "example": "any"
                 },
                 "totalWorkingDays": {
+                  "example": "any"
+                },
+                "payPeriod": {
                   "example": "any"
                 },
                 "paymentDate": {

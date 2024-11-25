@@ -38,6 +38,10 @@ exports.getByMonth = async (req, res) => {
     }
 }
 
+function getPF(data){
+return data + 1 
+}
+
 exports.create = async (req, res) => {
     const {
         empId,
@@ -52,9 +56,11 @@ exports.create = async (req, res) => {
         pf,
         performanceAndSpecialAllowens,
     } = req.body;
-
-    if(payPeriod === req.body.payPeriod){
-       
+    console.log(req.body,'body')
+    const checking = await paySlip.find({empId:empId, payPeriod:payPeriod})
+    console.log("checking",checking)
+    if(checking.length != 0){
+       console.log('!checking.length === 0  ifff')
         try {
             const Loss = Math.round(lossOfPayDaysAndHour * salary / totalWorkingDays)
             const crossEarn = Number(performanceAndSpecialAllowens) + Number(salary)
@@ -62,8 +68,9 @@ exports.create = async (req, res) => {
             const InPfLoss = Number(pf) + Number(incomeTax) + Loss
             const actualSalary = salary - Loss + (performanceAndSpecialAllowens - InPf);
             const calculatedTotalAmount = Math.round(actualSalary);
-
-    
+let pfData = 2
+           let fimal =  getPF(pfData)
+           console.log(fimal,"fimal");
             const updatePayload = {
                 empId,
                 empName,
@@ -87,6 +94,9 @@ exports.create = async (req, res) => {
                 updatePayload,
                 { new: true }
             );
+            if(!updateData){
+                return res.status(404).json({message:"Document not available"})
+            }
            
             const imagePath = path.join(__dirname, '../public/elonImage.png');
             const imageBuffer = fs.readFileSync(imagePath);
@@ -126,14 +136,17 @@ exports.create = async (req, res) => {
             res.status(500).json({ message: error.message })
         }
     }else{
+       console.log('!checking.length === 0  else')
+
         try {
-            const { empId, empName, salary, totalWorkingDays, payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, pf, performanceAndSpecialAllowens } = req.body
+            // const { empId, empName, salary, totalWorkingDays, payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, pf, performanceAndSpecialAllowens } = req.body
             const Loss = Math.round(lossOfPayDaysAndHour * salary / totalWorkingDays)
             const crossEarn = Number(performanceAndSpecialAllowens) + Number(salary)
             const InPf = Number(pf) + Number(incomeTax)
             const InPfLoss = Number(pf) + Number(incomeTax) + Loss
             const actualSalary = salary - (lossOfPayDaysAndHour * salary / totalWorkingDays) + (performanceAndSpecialAllowens - InPf);
             const calculatedTotalAmount = Math.round(actualSalary);
+
             const create = await new paySlip({
                 empId,
                 empName,
@@ -153,10 +166,10 @@ exports.create = async (req, res) => {
                 totalAmount: calculatedTotalAmount,
             })
     
-            const pay = await paySlip.find({ payPeriod: payPeriod, empId: empId })
-            if (pay.length === 0) {
+            // const pay = await paySlip.find({ payPeriod: payPeriod, empId: empId })
+            // if (pay.length === 0) {
                 await create.save()
-            }
+            // }
             const imagePath = path.join(__dirname, '../public/elonImage.png');
             const imageBuffer = fs.readFileSync(imagePath);
             const base64Image = `data:image/png;base64,${imageBuffer.toString('base64')}`;
