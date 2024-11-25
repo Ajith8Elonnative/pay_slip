@@ -427,42 +427,15 @@
         }
       }
     },
-    "/pay_slip_savePdf/store_slip": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "employeeId": {
-                  "example": "any"
-                },
-                "month": {
-                  "example": "any"
-                },
-                "year": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/pay_slip_savePdf/get_slip": {
       "get": {
         "description": "",
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"

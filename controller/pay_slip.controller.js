@@ -7,7 +7,7 @@ const nodemailer = require('nodemailer')
 require('dotenv').config()
 const fs = require('fs');
 const generatePDF = require('../controller/generatePdf.js');
-const { info } = require('console');
+// const { info } = require('console');
 const basefile = require('../model/monthly_slip.model.js')
 const getEmail = require('../model/emp.model.js')
 
@@ -104,26 +104,26 @@ exports.create = async (req, res) => {
 
 exports.sendEmail = async (req, res) => {
     try {
-        // const empIds = Array.isArray(req.body.data) ? req.body.data : [req.body.data];
-        // const emails = await Promise.all(
-        //     empIds.map(async ({ empId }) => {
-        //         const searchEmail = await getEmail.find({ empId })
-        //         const getFile = await basefile.find({empId})
-
-        //         return searchEmail.length > 0 ? searchEmail[0].email : null
-                
-        //     })
-        // )
-        // const findEmails = emails
-        
-        // const base64 = await basefile.find()
+       
         const {email} = req.params
         const {employeeId} = req.body
         const base64 = await basefile.find({employeeId})
         const getbase64 = base64[0].file
-        console.log(getbase64)
-        const base64String = "data:application/pdf;base64"+getbase64;
-        base64toPdf.base64Decode(base64String,'pay_slip.pdf')
+        
+        function base64ToPDF(getbase64
+            , outputPath) {
+            // Decode base64 string to binary data
+            const binaryData = Buffer.from(getbase64, 'base64');
+            // Write binary data to PDF file
+            fs.writeFileSync(outputPath, binaryData);
+            console.log(`PDF file created at: ${outputPath}`);
+          }
+          // Example Base64 string (replace this with your actual Base64 string)
+          const base64String = "JVBERi0xLjQKJ...."; // Shortened for example
+          const outputPath = "output.pdf";
+          
+          // Call the function to create the PDF
+          base64ToPDF(base64String, outputPath);
 
         const transporter = nodemailer.createTransport({
             service: "gmail",
