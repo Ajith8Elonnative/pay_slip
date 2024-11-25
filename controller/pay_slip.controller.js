@@ -52,15 +52,17 @@ exports.create = async (req, res) => {
         pf,
         performanceAndSpecialAllowens,
     } = req.body;
+
     if(payPeriod === req.body.payPeriod){
        
         try {
-            const Loss = Math.round((lossOfPayDaysAndHour * salary) / totalWorkingDays);
-            const crossEarn = Number(performanceAndSpecialAllowens) + Number(salary);
-            const InPf = Number(pf) + Number(incomeTax);
-            const InPfLoss = InPf + Loss;
-            const actualSalary = salary - (Loss || 0) + (performanceAndSpecialAllowens || 0) - InPf;
+            const Loss = Math.round(lossOfPayDaysAndHour * salary / totalWorkingDays)
+            const crossEarn = Number(performanceAndSpecialAllowens) + Number(salary)
+            const InPf = Number(pf) + Number(incomeTax)
+            const InPfLoss = Number(pf) + Number(incomeTax) + Loss
+            const actualSalary = salary - Loss + (performanceAndSpecialAllowens - InPf);
             const calculatedTotalAmount = Math.round(actualSalary);
+
     
             const updatePayload = {
                 empId,
@@ -81,7 +83,7 @@ exports.create = async (req, res) => {
                 totalAmount: calculatedTotalAmount,
             };
     
-            const updateData = await paySlip.findOneAndUpdate(
+            const updateData = await paySlip.findOneAndUpdate( { empId, payPeriod },
                 updatePayload,
                 { new: true }
             );
@@ -99,7 +101,7 @@ exports.create = async (req, res) => {
             } else {
                 console.log("Employee details found:", empDetail);
             }
-            
+            console.log(updateData)
             const htmlFile = await ejs.renderFile(path.join(__dirname, '../views/slip.ejs'), { paySlipData: updateData, emp: empDetail, imageUrl: base64Image, });
             
             const buffer = await generatePDF(htmlFile)

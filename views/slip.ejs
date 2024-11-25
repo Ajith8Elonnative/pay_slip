@@ -94,19 +94,19 @@
                 Pay Period
               </td>
               <td style="padding: 4px; border: 1px solid #8d8d8d">
-                <%= paySlipData.payPeriod %>
+                <%= paySlipData && paySlipData.payPeriod ? paySlipData.payPeriod : 'N/A' %>
               </td>
             </tr>
             <tr>
               <td style="padding: 4px; border: 1px solid #8d8d8d">Pay Date</td>
               <td style="padding: 4px; border: 1px solid #8d8d8d">
-                <%= paySlipData.paymentDate %>
+                <%= paySlipData && paySlipData.paymentDate ? paySlipData.paymentDate : 'N/A' %>
               </td>
             </tr>
             <tr>
               <td style="padding: 4px; border: 1px solid #8d8d8d">Paid Days</td>
               <td style="padding: 4px; border: 1px solid #8d8d8d">
-                <%= paySlipData.paidDays %>
+                <%= paySlipData && paySlipData.paidDays ? paySlipData.paidDays : 'N/A' %>
               </td>
             </tr>
             <tr>
@@ -114,7 +114,7 @@
                 Loss of Pay Days
               </td>
               <td style="padding: 4px; border: 1px solid #8d8d8d">
-                <%= paySlipData.lossOfPayDaysAndHour %>
+                <%= paySlipData && paySlipData.lossOfPayDaysAndHour ? paySlipData.lossOfPayDaysAndHour : 'N/A' %>
               </td>
             </tr>
           </tbody>
@@ -193,13 +193,13 @@
             <tr>
               <td style="padding: 4px; border: 1px solid #8d8d8d">Basic</td>
               <td style="padding: 4px; border: 1px solid #8d8d8d">
-                <%= paySlipData.basics %>
+                <%= paySlipData && paySlipData.basics ? paySlipData.basics : 'N/A' %>
               </td>
               <td style="padding: 4px; border: 1px solid #8d8d8d">
                 Income Tax
               </td>
               <td style="padding: 4px; border: 1px solid #8d8d8d">
-                <%= paySlipData.incomeTax %>
+                <%= paySlipData && paySlipData.incomeTax ? paySlipData.incomeTax : 'N/A' %>
               </td>
             </tr>
             <tr>
@@ -207,11 +207,11 @@
                 Performance and Special Allowances
               </td>
               <td style="padding: 4px; border: 1px solid #8d8d8d">
-                <%= paySlipData.performanceAndSpecialAllowens %>
+                <%= paySlipData && paySlipData.performanceAndSpecialAllowens ? paySlipData.performanceAndSpecialAllowens : 'N/A' %>
               </td>
               <td style="padding: 4px; border: 1px solid #8d8d8d">Loss</td>
               <td style="padding: 4px; border: 1px solid #8d8d8d">
-                <%= paySlipData.loss %>
+                <%= paySlipData && paySlipData.loss ? paySlipData.loss : 'N/A' %>
               </td>
             </tr>
             <tr>
@@ -219,11 +219,11 @@
                 <strong>Gross Earnings</strong>
               </td>
               <td style="padding: 4px; border: 1px solid #8d8d8d">
-                <%= paySlipData.crossEarning %>
+                <%= paySlipData && paySlipData.crossEarning ? paySlipData.crossEarning : 'N/A' %>
               </td>
               <td style="padding: 4px; border: 1px solid #8d8d8d">PF</td>
               <td style="padding: 4px; border: 1px solid #8d8d8d">
-                <%= paySlipData.pf %>
+                <%= paySlipData && paySlipData.pf ? paySlipData.pf : 'N/A' %>
               </td>
             </tr>
             <tr>
@@ -233,7 +233,7 @@
                 <strong>Total Reduction</strong>
               </td>
               <td style="padding: 4px; border: 1px solid #8d8d8d">
-                <%= paySlipData.totalReduction %>
+                <%= paySlipData && paySlipData.totalReduction ? paySlipData.totalReduction : 'N/A' %>
               </td>
             </tr>
           </tbody>
@@ -255,7 +255,7 @@
                 Total Net Payable (Gross Earnings - Total Reduction)
               </td>
               <td style="padding: 6px; width: 50%; border: 1px solid #8d8d8d">
-                <%= paySlipData.totalAmount %>
+                <%= paySlipData && paySlipData.totalAmount ? paySlipData.totalAmount : 'N/A' %>
               </td>
             </tr>
           </tbody>
