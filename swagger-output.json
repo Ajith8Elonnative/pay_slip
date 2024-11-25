@@ -430,6 +430,23 @@
     "/pay_slip_savePdf/get_slip": {
       "get": {
         "description": "",
+        "parameters": [
+          {
+            "name": "employeeId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "month",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
