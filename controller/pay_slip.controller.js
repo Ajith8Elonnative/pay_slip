@@ -7,7 +7,7 @@ const nodemailer = require('nodemailer')
 require('dotenv').config()
 const fs = require('fs');
 const generatePDF = require('../controller/generatePdf.js');
-// const { info } = require('console');
+const { info } = require('console');
 const basefile = require('../model/monthly_slip.model.js')
 const getEmail = require('../model/emp.model.js')
 
@@ -39,65 +39,151 @@ exports.getByMonth = async (req, res) => {
 }
 
 exports.create = async (req, res) => {
-    try {
-        const { empId, empName, salary, totalWorkingDays, payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, basics, totalReduction, crossEarning, loss, pf, performanceAndSpecialAllowens, totalAmount } = req.body
-        const Loss = Math.round(lossOfPayDaysAndHour * salary / totalWorkingDays)
-        const crossEarn = Number(performanceAndSpecialAllowens) + Number(salary)
-        const InPf = Number(pf) + Number(incomeTax)
-        const InPfLoss = Number(pf) + Number(incomeTax) + Loss
-        const actualSalary = salary - (lossOfPayDaysAndHour * salary / totalWorkingDays) + (performanceAndSpecialAllowens - InPf);
-        const calculatedTotalAmount = Math.round(actualSalary);
-        const create = await new paySlip({
-            empId,
-            empName,
-            salary,
-            totalWorkingDays,
-            payPeriod,
-            paymentDate,
-            paidDays,
-            lossOfPayDaysAndHour,
-            basics: salary,
-            incomeTax,
-            loss: Loss,
-            pf,
-            crossEarning: crossEarn,
-            totalReduction: InPfLoss,
-            performanceAndSpecialAllowens,
-            totalAmount: calculatedTotalAmount,
-        })
-
-        const pay = await paySlip.find({ payPeriod: payPeriod, empId: empId })
-        if (pay.length === 0) {
-            await create.save()
+    const {
+        empId,
+        empName,
+        salary,
+        totalWorkingDays,
+        payPeriod,
+        paymentDate,
+        paidDays,
+        lossOfPayDaysAndHour,
+        incomeTax,
+        pf,
+        performanceAndSpecialAllowens,
+    } = req.body;
+    if(payPeriod === req.body.payPeriod){
+       
+        try {
+            const Loss = Math.round((lossOfPayDaysAndHour * salary) / totalWorkingDays);
+            const crossEarn = Number(performanceAndSpecialAllowens) + Number(salary);
+            const InPf = Number(pf) + Number(incomeTax);
+            const InPfLoss = InPf + Loss;
+            const actualSalary = salary - (Loss || 0) + (performanceAndSpecialAllowens || 0) - InPf;
+            const calculatedTotalAmount = Math.round(actualSalary);
+    
+            const updatePayload = {
+                empId,
+                empName,
+                salary,
+                payPeriod,
+                totalWorkingDays,
+                paymentDate,
+                paidDays,
+                lossOfPayDaysAndHour,
+                basics: salary,
+                incomeTax,
+                loss: Loss,
+                pf,
+                crossEarning: crossEarn,
+                totalReduction: InPfLoss,
+                performanceAndSpecialAllowens,
+                totalAmount: calculatedTotalAmount,
+            };
+    
+            const updateData = await paySlip.findOneAndUpdate(
+                updatePayload,
+                { new: true }
+            );
+           
+            const imagePath = path.join(__dirname, '../public/elonImage.png');
+            const imageBuffer = fs.readFileSync(imagePath);
+            const base64Image = `data:image/png;base64,${imageBuffer.toString('base64')}`;
+            const empDetail = await empDetails.findOne({ empId:empId });
+            
+            if (!empDetail) {
+                console.log("Employee details not found for empId:", req.body.empId);
+                return res.status(404).json({
+                    message: `Employee details not found for empId: ${req.body.empId}`,
+                });
+            } else {
+                console.log("Employee details found:", empDetail);
+            }
+            
+            const htmlFile = await ejs.renderFile(path.join(__dirname, '../views/slip.ejs'), { paySlipData: updateData, emp: empDetail, imageUrl: base64Image, });
+            
+            const buffer = await generatePDF(htmlFile)
+            const base64Data = buffer.toString('base64');
+            
+            const [ year, month] = await payPeriod.split('-')
+           
+            const updated = await basefile.findOneAndUpdate(
+                {
+                    employeeId: empId,
+                    month: month,
+                    year: year,
+                    file: base64Data
+                }
+            );
+            res.status(201).json({
+                message: "successfully update",
+                data: updateData
+            })
+    
+        } catch (error) {
+            res.status(500).json({ message: error.message })
         }
-        const imagePath = path.join(__dirname, '../public/elonImage.png');
-        const imageBuffer = fs.readFileSync(imagePath);
-        const base64Image = `data:image/png;base64,${imageBuffer.toString('base64')}`;
-
-        const empDetail = await empDetails.findOne({ empId: req.body.empId });
-
-        const html = await ejs.renderFile(path.join(__dirname, '../views/slip.ejs'), { paySlipData: create, emp: empDetail, imageUrl: base64Image, });
-        const buffer = await generatePDF(html)
-        const base64Data = buffer.toString('base64');
-        const [day, month, year] = await paymentDate.split('/')
-        const pdfBase = await new basefile({
-            file: base64Data,
-            employeeId: empId,
-            month: month,
-            year: year
-        })
-        const validId = await basefile.find({ employeeId: empId })
-        if (validId.length === 0) {
-            await pdfBase.save()
+    }else{
+        try {
+            const { empId, empName, salary, totalWorkingDays, payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, pf, performanceAndSpecialAllowens } = req.body
+            const Loss = Math.round(lossOfPayDaysAndHour * salary / totalWorkingDays)
+            const crossEarn = Number(performanceAndSpecialAllowens) + Number(salary)
+            const InPf = Number(pf) + Number(incomeTax)
+            const InPfLoss = Number(pf) + Number(incomeTax) + Loss
+            const actualSalary = salary - (lossOfPayDaysAndHour * salary / totalWorkingDays) + (performanceAndSpecialAllowens - InPf);
+            const calculatedTotalAmount = Math.round(actualSalary);
+            const create = await new paySlip({
+                empId,
+                empName,
+                salary,
+                totalWorkingDays,
+                payPeriod,
+                paymentDate,
+                paidDays,
+                lossOfPayDaysAndHour,
+                basics: salary,
+                incomeTax,
+                loss: Loss,
+                pf,
+                crossEarning: crossEarn,
+                totalReduction: InPfLoss,
+                performanceAndSpecialAllowens,
+                totalAmount: calculatedTotalAmount,
+            })
+    
+            const pay = await paySlip.find({ payPeriod: payPeriod, empId: empId })
+            if (pay.length === 0) {
+                await create.save()
+            }
+            const imagePath = path.join(__dirname, '../public/elonImage.png');
+            const imageBuffer = fs.readFileSync(imagePath);
+            const base64Image = `data:image/png;base64,${imageBuffer.toString('base64')}`;
+    
+            const empDetail = await empDetails.findOne({ empId: req.body.empId });
+    
+            const html = await ejs.renderFile(path.join(__dirname, '../views/slip.ejs'), { paySlipData: create, emp: empDetail, imageUrl: base64Image, });
+            const buffer = await generatePDF(html)
+            const base64Data = buffer.toString('base64');
+            const [day, month, year] = await paymentDate.split('-')
+            const pdfBase = await new basefile({
+                file: base64Data,
+                employeeId: empId,
+                month: month,
+                year: year
+            })
+            const validId = await basefile.find({ employeeId: empId })
+            if (validId.length === 0) {
+                await pdfBase.save()
+            }
+            res.status(201).json({
+                message: 'PDF Generated Successefully',
+                code: 'PS-201',
+                data: base64Data
+            });
+    
+        } catch (error) {
+            res.status(500).json({ message: error.message })
         }
-        res.status(201).json({
-            message: 'PDF Generated Successefully',
-            code: 'PS-201',
-            data: base64Data
-        });
-
-    } catch (error) {
-        res.status(500).json({ message: error.message })
     }
 }
 
@@ -166,89 +252,9 @@ exports.sendEmail = async (req, res) => {
 }
 
 
-exports.update = async (req, res) => {
-    try {
-        const {
-            empId,
-            empName,
-            salary,
-            totalWorkingDays,
-            payPeriod,
-            paymentDate,
-            paidDays,
-            lossOfPayDaysAndHour,
-            incomeTax,
-            pf,
-            performanceAndSpecialAllowens,
-        } = req.body;
-
-        const Loss = Math.round((lossOfPayDaysAndHour * salary) / totalWorkingDays);
-        const crossEarn = Number(performanceAndSpecialAllowens) + Number(salary);
-        const InPf = Number(pf) + Number(incomeTax);
-        const InPfLoss = InPf + Loss;
-        const actualSalary = salary - (Loss || 0) + (performanceAndSpecialAllowens || 0) - InPf;
-        const calculatedTotalAmount = Math.round(actualSalary);
-
-        const updatePayload = {
-            empId,
-            empName,
-            salary,
-            payPeriod,
-            totalWorkingDays,
-            paymentDate,
-            paidDays,
-            lossOfPayDaysAndHour,
-            basics: salary,
-            incomeTax,
-            loss: Loss,
-            pf,
-            crossEarning: crossEarn,
-            totalReduction: InPfLoss,
-            performanceAndSpecialAllowens,
-            totalAmount: calculatedTotalAmount,
-        };
-
-        const updateData = await paySlip.findOneAndUpdate(
-            { _id: req.params.id },
-            updatePayload,
-            { new: true }
-        );
-
-        const imagePath = path.join(__dirname, '../public/elonImage.png');
-        const imageBuffer = fs.readFileSync(imagePath);
-        const base64Image = `data:image/png;base64,${imageBuffer.toString('base64')}`;
-        const empDetail = await empDetails.findOne({ empId: req.body.empId });
-
-        const htmlFile = await ejs.renderFile(path.join(__dirname, '../views/slip.ejs'), { paySlipData: updateData, emp: empDetail, imageUrl: base64Image, });
-
-        const buffer = await generatePDF(htmlFile)
-        const base64Data = buffer.toString('base64');
-        console.log("54", base64Data)
-        const [day, month, year] = await paymentDate.split('/')
-
-        const updated = await basefile.findOneAndUpdate(
-            { employeeId: empId, month: month, year: year }, // Search criteria
-            {
-                employeeId: empId,
-                month: month,
-                year: year,
-                file: base64Data
-            }, // Fields to update
-            {
-                new: true, // Return the updated document
-                // upsert: true // Create a new document if no match is found
-            }
-        );
-
-        res.status(201).json({
-            message: "successfully update",
-            data: updateData
-        })
-
-    } catch (error) {
-        res.status(500).json({ message: error.message })
-    }
-}
+// exports.update = async (req, res) => {
+    
+// }
 
 
 exports.delete = async (req, res) => {

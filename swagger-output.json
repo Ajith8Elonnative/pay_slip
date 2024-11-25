@@ -248,6 +248,9 @@
             "schema": {
               "type": "object",
               "properties": {
+                "payPeriod": {
+                  "example": "any"
+                },
                 "empId": {
                   "example": "any"
                 },
@@ -258,9 +261,6 @@
                   "example": "any"
                 },
                 "totalWorkingDays": {
-                  "example": "any"
-                },
-                "payPeriod": {
                   "example": "any"
                 },
                 "paymentDate": {
@@ -275,25 +275,10 @@
                 "incomeTax": {
                   "example": "any"
                 },
-                "basics": {
-                  "example": "any"
-                },
-                "totalReduction": {
-                  "example": "any"
-                },
-                "crossEarning": {
-                  "example": "any"
-                },
-                "loss": {
-                  "example": "any"
-                },
                 "pf": {
                   "example": "any"
                 },
                 "performanceAndSpecialAllowens": {
-                  "example": "any"
-                },
-                "totalAmount": {
                   "example": "any"
                 }
               }
@@ -303,6 +288,9 @@
         "responses": {
           "201": {
             "description": "Created"
+          },
+          "404": {
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -336,69 +324,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/Pay_slip_calculate/update/{id}": {
-      "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "empId": {
-                  "example": "any"
-                },
-                "empName": {
-                  "example": "any"
-                },
-                "salary": {
-                  "example": "any"
-                },
-                "totalWorkingDays": {
-                  "example": "any"
-                },
-                "payPeriod": {
-                  "example": "any"
-                },
-                "paymentDate": {
-                  "example": "any"
-                },
-                "paidDays": {
-                  "example": "any"
-                },
-                "lossOfPayDaysAndHour": {
-                  "example": "any"
-                },
-                "incomeTax": {
-                  "example": "any"
-                },
-                "pf": {
-                  "example": "any"
-                },
-                "performanceAndSpecialAllowens": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
           },
           "500": {
             "description": "Internal Server Error"

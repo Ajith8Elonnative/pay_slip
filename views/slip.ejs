@@ -78,7 +78,7 @@
                 Employee Id
               </td>
               <td style="padding: 4px; border: 1px solid #8d8d8d">
-                <%= paySlipData.empId %>
+                <%= paySlipData && paySlipData.empId ? paySlipData.empId : 'Not Available' %>
               </td>
             </tr>
             <tr>
