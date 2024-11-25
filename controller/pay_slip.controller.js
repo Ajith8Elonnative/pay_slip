@@ -179,17 +179,18 @@ let pfData = 2
             const html = await ejs.renderFile(path.join(__dirname, '../views/slip.ejs'), { paySlipData: create, emp: empDetail, imageUrl: base64Image, });
             const buffer = await generatePDF(html)
             const base64Data = buffer.toString('base64');
-            const [day, month, year] = await paymentDate.split('-')
+            const [year, month] = await payPeriod.split('-')
+            console.log(month)
             const pdfBase = await new basefile({
                 file: base64Data,
                 employeeId: empId,
                 month: month,
                 year: year
             })
-            const validId = await basefile.find({ employeeId: empId })
-            if (validId.length === 0) {
+            // const validId = await basefile.find({ employeeId: empId })
+            // if (validId.length === 0) {
                 await pdfBase.save()
-            }
+            // }
             res.status(201).json({
                 message: 'PDF Generated Successefully',
                 code: 'PS-201',
