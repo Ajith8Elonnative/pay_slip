@@ -38,10 +38,6 @@ exports.getByMonth = async (req, res) => {
     }
 }
 
-function getPF(data){
-return data + 1 
-}
-
 exports.create = async (req, res) => {
     const {
         empId,
@@ -60,7 +56,7 @@ exports.create = async (req, res) => {
     const checking = await paySlip.find({empId:empId, payPeriod:payPeriod})
     console.log("checking",checking)
     if(checking.length != 0){
-       console.log('!checking.length === 0  ifff')
+       
         try {
             const Loss = Math.round(lossOfPayDaysAndHour * salary / totalWorkingDays)
             const crossEarn = Number(performanceAndSpecialAllowens) + Number(salary)
@@ -68,9 +64,7 @@ exports.create = async (req, res) => {
             const InPfLoss = Number(pf) + Number(incomeTax) + Loss
             const actualSalary = salary - Loss + (performanceAndSpecialAllowens - InPf);
             const calculatedTotalAmount = Math.round(actualSalary);
-let pfData = 2
-           let fimal =  getPF(pfData)
-           console.log(fimal,"fimal");
+
             const updatePayload = {
                 empId,
                 empName,
@@ -136,8 +130,6 @@ let pfData = 2
             res.status(500).json({ message: error.message })
         }
     }else{
-       console.log('!checking.length === 0  else')
-
         try {
             // const { empId, empName, salary, totalWorkingDays, payPeriod, paymentDate, paidDays, lossOfPayDaysAndHour, incomeTax, pf, performanceAndSpecialAllowens } = req.body
             const Loss = Math.round(lossOfPayDaysAndHour * salary / totalWorkingDays)
@@ -180,7 +172,7 @@ let pfData = 2
             const buffer = await generatePDF(html)
             const base64Data = buffer.toString('base64');
             const [year, month] = await payPeriod.split('-')
-            console.log(month)
+            
             const pdfBase = await new basefile({
                 file: base64Data,
                 employeeId: empId,

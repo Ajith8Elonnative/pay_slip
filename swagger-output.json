@@ -18,40 +18,6 @@
     "application/json"
   ],
   "paths": {
-    "/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/check/{token}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "token",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
     "/Pay_slip_employee/getAll": {
       "get": {
         "description": "",
@@ -561,6 +527,76 @@
             "type": "string"
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/pay_slip_attendance/emp_attendance": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "empId": {
+                  "example": "any"
+                },
+                "date": {
+                  "example": "any"
+                },
+                "attendance": {
+                  "example": "any"
+                },
+                "weekOff": {
+                  "example": "any"
+                },
+                "reason": {
+                  "example": "any"
+                },
+                "presentInMonth": {
+                  "example": "any"
+                },
+                "absentInMonth": {
+                  "example": "any"
+                },
+                "hfDayAbsentInMonth": {
+                  "example": "any"
+                },
+                "leaveInMonth": {
+                  "example": "any"
+                },
+                "holidayInMonth": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/pay_slip_monthlyAttendance/getAll": {
+      "get": {
+        "description": "",
         "responses": {
           "200": {
             "description": "OK"
